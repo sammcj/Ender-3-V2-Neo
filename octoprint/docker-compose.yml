@@ -1,0 +1,65 @@
+---
+version: "3.9"
+
+# Variables are stored in the .env file which contains the defaults if not set in the environment.
+
+### YAML Anchors ###
+x-environment: &environment
+  environment:
+    - PUID=${PUID:-1001}
+    - PGID=${PGID:-2222}
+    - UMASK=${UMASK:-002}
+    - TZ=${TZ:-Australia/Melbourne}
+    - DOCKER_BUILDKIT=${DOCKER_BUILDKIT:-1}
+    - COMPOSE_DOCKER_CLI_BUILD=${COMPOSE_DOCKER_CLI_BUILD:-1}
+    - PRINTER_USB_0=${PRINTER_USB_0:-/dev/3dprinter}
+    - PRINTER_WEBCAM_0=${PRINTER_WEBCAM_0:-/dev/webcam}
+    - CAMERA_DEV=$PRINTER_WEBCAM_0
+    - LOCAL_TIME_FILE=${LOCAL_TIME_FILE:-/etc/localtime}
+    - OCTOPRINT_VOLUME=${OCTOPRINT_VOLUME:-/octoprint}
+    - ENABLE_MJPG_STREAMER=${ENABLE_MJPG_STREAMER:-true}
+    - MJPG_STREAMER_INPUT=${MJPG_STREAMER_INPUT:--r 1920x1080 -f 30 -n}
+# https://hotio.dev/pullio/
+x-autoupdate: &autoupdate
+  labels:
+    - "org.hotio.pullio.update=true"
+
+x-restart: &restart
+  restart: unless-stopped
+
+x-env-configs: &env-configs
+  env_file:
+    - .env
+### END OF YAML ANCHORS ###
+
+### Services ###
+
+services:
+###### 3D Printing ######
+
+  octoprint:
+    image: octoprint/octoprint:latest
+    <<: [*autoupdate, *restart, *environment]
+    #    profiles:
+    #      - "octoprint"
+    container_name: octoprint
+    cap_add:
+      - SYS_NICE
+    ports:
+      - ${PORT_octoprint:-7126}:80
+      # - ${PORT_octoprint_webcam:-8080}:8080
+    devices:
+      - ${PRINTER_USB_0:-/dev/3dprinter}:${PRINTER_USB_0:-/dev/3dprinter}
+      - ${PRINTER_WEBCAM_0:-/dev/webcam}:${PRINTER_WEBCAM_0:-/dev/webcam}
+    volumes:
+      - ${LOCAL_TIME_FILE:-/etc/localtime}:/etc/localtime:ro
+      - ${OCTOPRINT_VOLUME:-/opt/docker-data/octoprint}:/octoprint
+    healthcheck:
+      test: ["CMD", "curl", "-m", "5", "-s", "-f", "-i", "http://localhost:${PORT_octoprint}/"]
+      interval: 15m
+      timeout: 20s
+      retries: 3
+      start_period: 120s
+
+###### END 3D Printing ######
+

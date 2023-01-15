@@ -1,0 +1,10 @@
+default: true
+style: consistent
+no-hard-tabs: true
+whitespace: false
+line_length: false
+no-alt-text: false
+no-bare-urls: false
+no-inline-html: false
+single-title: false
+indent: 2

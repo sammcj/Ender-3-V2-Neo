@@ -1,0 +1,34 @@
+name: "Check for TODOs and create or update issues"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 15 * * 6" # 15:00 UTC on Saturday = 01:00 AEST on Sunday
+
+permissions:
+  issues: write
+  contents: read
+
+# One build per branch, cancel out of date builds
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  todo-issues:
+    runs-on: "ubuntu-22.04"
+    timeout-minutes: 30
+    steps:
+      - uses: "actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b" # tag=v3
+      - name: "Check for TODOs and create or update issues"
+        uses: ribtoks/tdg-github-action@master
+        with:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+          REF: ${{ github.ref }}
+          EXCLUDE_PATTERN: "node_modules/*"
+          MIN_WORDS: 2
+          MIN_CHARACTERS: 10
+          ADD_LIMIT: 20
+          COMMENT_ON_ISSUES: true
