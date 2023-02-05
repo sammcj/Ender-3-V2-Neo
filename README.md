@@ -75,10 +75,9 @@ sudo newfs_msdos -F 32 -b 4096 disk4s1 # Format the SDCard as FAT32 with a 4096 
 ### Cura
 
 - [Ultimaker Cura](https://ultimaker.com/software/ultimaker-cura).
+- See [cura/profiles](cura/profiles)
 
 _Note: Creality's own '[Creality Slicer](https://www.creality.com/pages/download-ender-3-v2-neo)' software is a fork of [Cura](https://ultimaker.com/software/ultimaker-cura) and is often lagging behind Cura versions._
-
-- See [cura/profiles](cura/profiles)
 
 ## Materials
 
