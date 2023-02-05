@@ -39,23 +39,55 @@ services:
 
   octoprint:
     image: octoprint/octoprint:latest
-    <<: [*autoupdate, *restart, *environment]
+    <<: [*autoupdate, *restart, *env-configs, *environment]
     #    profiles:
     #      - "octoprint"
     container_name: octoprint
     cap_add:
       - SYS_NICE
+      # - MKNOD
+      # - SYS_RAWIO
     ports:
       - ${PORT_octoprint:-7126}:80
-      # - ${PORT_octoprint_webcam:-8080}:8080
+      # - ${PORT_octoprint_webcam1:-7127}:8081
+      # - ${PORT_octoprint_webcam2:-7128}:8082
+    # A list of device names with their MAJOR and MINOR IDs can be obtained by running:
+    # stat -c '%n major: %t minor: %T' /dev/*
+    # privileged: true # Only ever use this as a LAST RESORT, NEVER in production and ALWAYS make sure cgroup rules are applied and set correctly!
+    # device_cgroup_rules:
+    #   - 'c 188:* rmw' # access to usb serial devices like /dev/ttyUSB0, /dev/ttyUSB1 etc... when using CH340 USB serial adapters with the MAJOR of 188
+    #   - 'c 81:* rmw' # access to video and webcam devices like /dev/video0, /dev/video1 etc... when using Logitech webcams with the MAJOR of 81
+    #   - 'c 1:3 rw' # access to /dev/null
+    #   - 'c 1:5 rw' # access to /dev/zero
+    #   - 'c 1:8 rw' # access to /dev/random
+    #   - 'c 1:9 rw' # access to /dev/urandom
     devices:
-      - ${PRINTER_USB_0:-/dev/3dprinter}:${PRINTER_USB_0:-/dev/3dprinter}
-      - ${PRINTER_WEBCAM_0:-/dev/webcam}:${PRINTER_WEBCAM_0:-/dev/webcam}
+      - ${PRINTER_USB_0:-/dev/3dprinter}:/dev/3dprinter
+      # - ${PRINTER_WEBCAM_1:-/dev/webcam1}:/dev/webcam1  #  C920   ATTR{serial}=="FB5BC4FF"
+      # - ${PRINTER_WEBCAM_2:-/dev/webcam2}:/dev/webcam2  #  C922   ATTR{serial}=="36D296DF"
     volumes:
-      - ${LOCAL_TIME_FILE:-/etc/localtime}:/etc/localtime:ro
-      - ${OCTOPRINT_VOLUME:-/opt/docker-data/octoprint}:/octoprint
+      - ${LOCAL_TIME_FILE}:${LOCAL_TIME_FILE}:ro
+      - ${OCTOPRINT_VOLUME}:/octoprint:rw
+      - ${OCTOPRINT_VOLUME}/sam/run:/etc/services.d/mjpg-streamer/run
+    # environment:
+      # - ENABLE_MJPG_STREAMER=true
+      # - CAMERA_DEV=/dev/webcam1
+      # - CAMERA_DEV=/dev/webcam1,/dev/webcam2 #/dev/webcam1
+      # - MJPG_STREAMER_INPUT=${MJPG_STREAMER_INPUT}
+    # group_add:
+    #   - dialout
     healthcheck:
-      test: ["CMD", "curl", "-m", "5", "-s", "-f", "-i", "http://localhost:${PORT_octoprint}/"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "-m",
+          "5",
+          "-s",
+          "-f",
+          "-i",
+          "http://localhost:${PORT_octoprint}/",
+        ]
       interval: 15m
       timeout: 20s
       retries: 3

@@ -1,0 +1,21 @@
+# /usr/lib/systemd/system/ustreamer.service
+# Expects $WEBCAM to be set in /usr/lib/systemd/system/ustreamer.service.d/settings.conf
+
+[Unit]
+Description=Ustreamer camera stream
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=ustreamer
+Group=ustreamer
+EnvironmentFile=/usr/lib/systemd/system/ustreamer.service.d/settings.conf
+
+Restart=on-abnormal
+RestartSec=20
+
+ExecStart=/opt/scripts/ustreamer.sh
+
+[Install]
+WantedBy=multi-user.target
