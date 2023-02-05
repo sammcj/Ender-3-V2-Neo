@@ -620,7 +620,11 @@ M109 S{material_print_temperature_layer_0}  T0 ; heat to Cura Hotend
 ;*** Draw a Nozzle Cleaning line on the Left Side of Bed
 G92 E0 ;Reset Extruder
 G28 ; Home all axes
-; G29 ; Automatic Bed Leveling (handled by Octoprint plugin)
+;
+G29 L0 ;Automatic Bed Levelling (ABL) Load mesh 0
+G29 F 10.0 ;Automatic Bed Levelling (ABL) Set fade to 10
+G29 A ;Automatic Bed Levelling (ABL) Activate
+;
 G1 Z2.0 F3000 ;Move Z Axis up little to prevent scratching of Heat Bed
 G1 X10.1 Y20 Z0.28 F5000.0 ;Move to start position
 G1 X10.1 Y200.0 Z0.28 F1500.0 E15 ;Draw the first line
