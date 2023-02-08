@@ -1,0 +1,258 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH=/etc/oh-my-zsh
+export ZSH_CACHE_DIR=~/.oh-my-zsh/cache
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="mrtazz"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+zstyle ':omz:update' mode reminder
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+zstyle ':omz:update' frequency 30
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(evalcache git debian tmux history colorize fzf)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+EDITOR=vim
+
+SSH_ENV="$HOME/.ssh/agent-environment"
+
+function start_agent {
+  echo "Initialising new SSH agent..."
+  /usr/bin/ssh-agent | sed 's/^echo/#echo/' >"${SSH_ENV}"
+  echo succeeded
+  chmod 600 "${SSH_ENV}"
+  . "${SSH_ENV}" >/dev/null
+  /usr/bin/ssh-add
+}
+
+# Source SSH settings, if applicable
+
+if [ -f "${SSH_ENV}" ]; then
+  . "${SSH_ENV}" >/dev/null
+  #ps ${SSH_AGENT_PID} doesn't work under cywgin
+  ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ >/dev/null || {
+    start_agent
+  }
+else
+  start_agent
+fi
+
+### History Stuff ###
+
+# Don't share tab history on iTerm2
+#unsetopt inc_append_history
+
+# Where it gets saved
+HISTFILE=~/.history
+
+# Remember about a years worth of history (AWESOME)
+export SAVEHIST=100000
+export HISTSIZE=100000
+
+# Don't overwrite, append!
+setopt APPEND_HISTORY
+
+# Write after each command
+# setopt INC_APPEND_HISTORY
+
+# Killer: share history between multiple shells
+setopt SHARE_HISTORY
+
+# If I type cd and then cd again, only save the last one
+setopt HIST_IGNORE_DUPS
+
+# Even if there are commands inbetween commands that are the same, still only save the last one
+setopt HIST_IGNORE_ALL_DUPS
+
+# Pretty    Obvious.  Right?
+setopt HIST_REDUCE_BLANKS
+
+# If a line starts with a space, don't save it.
+setopt HIST_IGNORE_SPACE
+setopt HIST_NO_STORE
+
+# When using a hist thing, make a newline show the change before executing it.
+setopt HIST_VERIFY
+
+# Save the time and how long a command ran
+setopt EXTENDED_HISTORY
+
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FIND_NO_DUPS
+
+# Autosuggestions from history, if none use the completion engine.
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+# Accept autosuggestion with shift+tab
+bindkey '^I' complete-word        # tab          | complete
+bindkey '^[[Z' autosuggest-accept # shift + tab  | autosuggest
+
+# Ensure that arrow keys work as they should
+bindkey '\e[A' up-line-or-history
+bindkey '\e[B' down-line-or-history
+
+bindkey '\eOA' up-line-or-history
+bindkey '\eOB' down-line-or-history
+
+bindkey '\e[C' forward-char
+bindkey '\e[D' backward-char
+
+bindkey '\eOC' forward-char
+bindkey '\eOD' backward-char
+
+bindkey "5C" emacs-forward-word #control left
+bindkey "5D" backward-word      #control right
+
+bindkey "^[[A" history-search-backward # Search history with up arrow
+bindkey "^[[B" history-search-forward  # Search history with up arrow
+
+# Don't complete stuff already on the line
+zstyle ':completion::*:(rm|vi):*' ignore-line true
+
+# Separate man page sections.  Neat.
+zstyle ':completion:*:manuals' separate-sections true
+
+zstyle ':completion:*' list-separator '»»'
+
+# Have the newer files last so I see them first
+zstyle ':completion:*' file-sort modification reverse
+
+# color code completion!!!!  Wohoo!
+zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
+
+# don't tab complete hosts (slow and if you have ad-blocking in your hosts file annoying)
+#zstyle ':completion:*' hosts off
+
+unsetopt LIST_AMBIGUOUS
+setopt COMPLETE_IN_WORD
+
+# Group completions by type (file, external command, etc)
+zstyle ':completion:*:matches' group 'yes'
+
+# tab completion for the middle of words
+autoload compinstall
+zstyle ':completion:*' matcher-list '' '' '' 'l:|=* r:|=*'
+
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*' group-name ''
+
+# Faster! (?)
+zstyle ':completion::complete:*' use-cache 1
+
+# Keep echo "station" > station from clobbering station
+setopt NO_CLOBBER
+
+# Case insensitive globbing
+setopt NO_CASE_GLOB
+
+# Be Reasonable!
+setopt NUMERIC_GLOB_SORT
+
+# I don't know why I never set this before.
+setopt EXTENDED_GLOB
+
+bindkey -M emacs '^H' backward-kill-word # backwards delete word
+
+# it's like, space AND completion.  Gnarlbot.
+bindkey -M viins ' ' magic-space
+
+# Push your line to the stack and run another command then pop it back
+bindkey -M vicmd "^q" push-line
+
+# cd into a directory when you type its name
+setopt autocd
+
+RUBYOPT="-W0"
