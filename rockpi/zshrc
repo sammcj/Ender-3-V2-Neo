@@ -256,3 +256,5 @@ bindkey -M vicmd "^q" push-line
 setopt autocd
 
 RUBYOPT="-W0"
+
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
