@@ -5,6 +5,12 @@
 ;----------------------------
 M75 {{ event.name | truncate:85:... }}
 
+;;; These are now all provided by Cura during slicing ;;;
+; G29 A ;Automatic Bed Levelling (ABL) Activate
+; G29 F 10.0 ;Automatic Bed Levelling (ABL) Set fade to 10
+; G29 L0 ;Automatic Bed Levelling (ABL) Load mesh 0
+; G29 J; Tilt the mesh after a three point probe
+
 
 ;----------------------------
 ; After print finishes
@@ -46,8 +52,8 @@ M117 Print was cancelled
 ; When print is paused
 ;----------------------------
 M76 ; Pause print screen
+M600 ; Smart Pause
 M117 Print was paused
-
 
 ;----------------------------
 ; When print is resumed

@@ -1,4 +1,4 @@
-; --- START Gcode for Ender 3 v2 Neo ---
+; --- Cura START Gcode for Ender 3 v2 Neo ---
 
 ; An up-to-date version of the tjjfvi's original script can be found
 ; here:  https://csi.t6.fyi/
@@ -618,6 +618,11 @@ G28 ; home
 M190 S{material_bed_temperature_layer_0} ; heat to Cura Bed setting
 M109 S{material_print_temperature_layer_0}  T0 ; heat to Cura Hotend
 ;*** End Preheating ***
+;--------------------------------------------
+; Load UBL mesh and tilt
+G29 A; Activate UBL
+G29 L0; Load the mesh from slot 0
+G29 J; Tilt the mesh after a three point probe
 ;--------------------------------------------
 ;*** Draw a Nozzle Cleaning line on the Left Side of Bed
 G28 ;Home

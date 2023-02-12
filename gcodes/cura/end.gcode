@@ -1,3 +1,4 @@
+; Cura END GCODE for Ender 3 v2 Neo
 ;-------------------------------------------
 ;*** Message
 M117 Print Completed
@@ -18,7 +19,8 @@ M140 S0 ;Turn-off bed
 G1 Z10 ;Raise Z more
 G90 ;Absolute positioning
 G1 F2500; Set speed to 2500mm/min
-G1 X0 Y{machine_depth} ;Present print
+;G1 X0 Y{machine_depth} ;Present print ; seems to be broken?
+G0 X0 Y235 F2500 ; Present print
 
 ; Power off motors
 M84 X Y E ;Disable all steppers but Z
