@@ -128,4 +128,4 @@ Sam McLeod
 
 v4.2.2 (and v4.2.7) motherboard diagram (upscaled using ML Super Resolution)
 
-![](images/V422andV427 mobo wiring upscaled.jpg)
+![](images/V422andV427moboupscaled.jpg)
