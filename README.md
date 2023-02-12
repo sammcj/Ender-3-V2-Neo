@@ -18,6 +18,7 @@ My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
     - [Webcam](#webcam)
   - [Links](#links)
   - [Author](#author)
+  - [Images](#images)
 
 # Sam's Ender 3 V2 Neo Setup
 
@@ -122,3 +123,9 @@ URLs for reaching the camera from outside the container are:
 Sam McLeod
 
 [smcleod.net](https://smcleod.net)
+
+## Images
+
+v4.2.2 (and v4.2.7) motherboard diagram (upscaled using ML Super Resolution)
+
+![](images/V422andV427 mobo wiring upscaled.jpg)
