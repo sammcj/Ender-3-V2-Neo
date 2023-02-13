@@ -610,9 +610,9 @@
  *   PWM on pin OC2A. Only use this option if you don't need PWM on 0C2A. (Check your schematic.)
  *   USE_OCR2A_AS_TOP sacrifices duty cycle control resolution to achieve this broader range of frequencies.
  */
-//#define FAST_PWM_FAN    // Increase the fan PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino
+#define FAST_PWM_FAN    // Increase the fan PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino // sammcj Enabled src https://github.com/Lash-L/Ender-3-V2-Neo-Setup/wiki/Printer-Upgrades#steps-1
 #if ENABLED(FAST_PWM_FAN)
-  //#define FAST_PWM_FAN_FREQUENCY 31400  // Define here to override the defaults below
+  #define FAST_PWM_FAN_FREQUENCY 31400  // Define here to override the defaults below // sammcj Enabled
   //#define USE_OCR2A_AS_TOP
   #ifndef FAST_PWM_FAN_FREQUENCY
     #ifdef __AVR__
@@ -955,7 +955,7 @@
    *
    * Set the default state here, change with 'M401 S' or UI, use M500 to save, M502 to reset.
    */
-  // #define BLTOUCH_HS_MODE true // sammcj disabled - sounds scary
+  #define BLTOUCH_HS_MODE true
 
   // Safety: Enable voltage mode settings in the LCD menu.
   //#define BLTOUCH_LCD_VOLTAGE_MENU

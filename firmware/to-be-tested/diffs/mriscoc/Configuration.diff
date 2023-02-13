@@ -1,10 +1,3 @@
-# diff
-
-## Configuration.h
-
-```diff
-diff Marlin/Configuration.h ../Special_Configurations/Ender3V2-422-BLTUBL-MPC/Configuration.h
-66c66
 66c66
 < #define STRING_CONFIG_H_AUTHOR "Sam McLeod (sammcj)" // Who made the changes.
 ---
@@ -52,20 +45,24 @@ diff Marlin/Configuration.h ../Special_Configurations/Ender3V2-422-BLTUBL-MPC/Co
 ---
 > #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }  // Ender Configs
 1195c1195
-< #define DEFAULT_MAX_ACCELERATION      { 550, 550, 100, 1000 }  // Ender Configs // sammcj increased X/Y by 50
+< #define DEFAULT_MAX_ACCELERATION      { 550, 550, 110, 1050 }  // Ender Configs // sammcj increased X/Y/E by 50, Z by 10
 ---
 > #define DEFAULT_MAX_ACCELERATION      { 500, 500, 100, 1000 }  // Ender Configs
 1224,1225c1224,1225
-<   #define DEFAULT_XJERK 10  // Ender Configs // sammcj increased from 8
-<   #define DEFAULT_YJERK 10  // Ender Configs // sammcj increased from 8
+<   #define DEFAULT_XJERK 10.5  // Ender Configs // sammcj increased from 8
+<   #define DEFAULT_YJERK 10.5  // Ender Configs // sammcj increased from 8
 ---
 >   #define DEFAULT_XJERK 8.0  // Ender Configs
 >   #define DEFAULT_YJERK 8.0  // Ender Configs
+1234c1234
+<   #define TRAVEL_EXTRA_XYJERK 1.0     // Additional jerk allowance for all travel moves // sammcj added
+---
+>   //#define TRAVEL_EXTRA_XYJERK 0.0     // Additional jerk allowance for all travel moves
 1242,1246c1242
 < #if ENABLED(LIN_ADVANCE)
 <   #define DEFAULT_EJERK    15.0  // Set high for Linear Advance // sammcj added
 < #else
-<   #define DEFAULT_EJERK     5.0  // Ender Configs
+<   #define DEFAULT_EJERK     5.5  // Ender Configs // sammcj increased by 0.5
 < #endif
 ---
 > #define DEFAULT_EJERK    5.0  // May be used by Linear Advance  // Ender Configs
@@ -82,6 +79,12 @@ diff Marlin/Configuration.h ../Special_Configurations/Ender3V2-422-BLTUBL-MPC/Co
 < #define Z_AFTER_HOMING  5      // (mm) Height to move to after homing Z  // MRiscoC Crearance over the bed // sammcj Enabled
 ---
 > //#define Z_AFTER_HOMING  5      // (mm) Height to move to after homing Z  // MRiscoC Crearance over the bed
+1713,1714c1708,1709
+< #define X_MAX_POS 245  // MRiscoC Stock physical limit // sammcj reduced slightly to prevent knocking
+< #define Y_MAX_POS 230  // MRiscoC Stock physical limit // sammcj reduced slightly to prevent knocking
+---
+> #define X_MAX_POS 248  // MRiscoC Stock physical limit
+> #define Y_MAX_POS 231  // MRiscoC Stock physical limit
 1902c1897
 <   // #define LEVELING_NOZZLE_TEMP   0   // (°C) Only applies to E0 at this time  // MRiscoC No necessary for BLTouch
 ---
@@ -90,12 +93,6 @@ diff Marlin/Configuration.h ../Special_Configurations/Ender3V2-422-BLTUBL-MPC/Co
 < // #define LCD_BED_TRAMMING
 ---
 > //#define LCD_BED_TRAMMING
-2227,2228c2222,2223
-< #define PREHEAT_1_TEMP_HOTEND 200
-< #define PREHEAT_1_TEMP_BED     65
----
-> #define PREHEAT_1_TEMP_HOTEND 195
-> #define PREHEAT_1_TEMP_BED     60
 2309c2304
 < #define NOZZLE_CLEAN_FEATURE // sammcj Enabled
 ---
@@ -104,79 +101,3 @@ diff Marlin/Configuration.h ../Special_Configurations/Ender3V2-422-BLTUBL-MPC/Co
 < #define SPEAKER // sammcj Enabled
 ---
 > //#define SPEAKER
-```
-
-# Configuration_adv.h
-
-```diff
-diff Marlin/Configuration_adv.h ../Special_Configurations/Ender3V2-422-BLTUBL-MPC/Configuration_adv.h
-958c958
-958c958
-<   // #define BLTOUCH_HS_MODE true // sammcj disabled - sounds scary
----
->   #define BLTOUCH_HS_MODE true
-1058c1058
-<   #define TRAMMING_SCREW_THREAD 30 // sammcj The ender 3 v2 Neo uses M3 screws
----
->   #define TRAMMING_SCREW_THREAD 40
-1085,1086c1085,1086
-< #define INPUT_SHAPING_X // sammcj Enabled
-< #define INPUT_SHAPING_Y // sammcj Enabled
----
-> //#define INPUT_SHAPING_X
-> //#define INPUT_SHAPING_Y
-1098c1098
-<   #define SHAPING_MENU                // Add a menu to the LCD to set shaping parameters. // sammcj Enabled
----
->   //#define SHAPING_MENU                // Add a menu to the LCD to set shaping parameters.
-1380c1380
-<   #define PROBE_OFFSET_WIZARD       // Add a Probe Z Offset calibration option to the LCD menu // sammcj Enabled
----
->   //#define PROBE_OFFSET_WIZARD       // Add a Probe Z Offset calibration option to the LCD menu
-1387c1387
-<     #define PROBE_OFFSET_WIZARD_START_Z -2.0 // sammcj (safer / less likely to hit bed)
----
->     //#define PROBE_OFFSET_WIZARD_START_Z -4.0
-1390c1390
-<     #define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER } // sammcj enabled
----
->     //#define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
-1657c1657
-<   #define AUTO_REPORT_SD_STATUS         // Auto-report media status with 'M27 S<seconds>' // sammcj Enabled
----
->   //#define AUTO_REPORT_SD_STATUS         // Auto-report media status with 'M27 S<seconds>'
-1730c1730
-<     #define CUSTOM_FIRMWARE_UPLOAD  // MRiscoC Enabled for easy firmware upgrade . // sammcj Enabled
----
->     //#define CUSTOM_FIRMWARE_UPLOAD  // MRiscoC Enabled for easy firmware upgrade
-2191c2191
-<   // #define OPTIMIZED_MESH_STORAGE  // Store mesh with less precision to save EEPROM space // sammcj Disabled
----
->   #define OPTIMIZED_MESH_STORAGE  // Store mesh with less precision to save EEPROM space
-2503c2503
-< #define EXTRA_FAN_SPEED // sammcj Enabled
----
-> //#define EXTRA_FAN_SPEED
-2526c2526
-<   #define RETRACT_LENGTH                5.75   // (mm) Default retract length (positive value)  // MRiscoC Bowden // sammcj
----
->   #define RETRACT_LENGTH                5   // (mm) Default retract length (positive value)  // MRiscoC Bowden
-2528,2529c2528,2529
-<   #define RETRACT_FEEDRATE             50   // (mm/s) Default feedrate for retracting  // MRiscoC Bowden // sammcj
-<   #define RETRACT_ZRAISE                0.24   // (mm) Default retract Z-raise  // MRiscoC Bowden // sammcj
----
->   #define RETRACT_FEEDRATE             40   // (mm/s) Default feedrate for retracting  // MRiscoC Bowden
->   #define RETRACT_ZRAISE                0.2   // (mm) Default retract Z-raise  // MRiscoC Bowden
-3612c3612
-< #define AUTO_REPORT_POSITION // sammcj Enabled
----
-> //#define AUTO_REPORT_POSITION
-3685c3685
-< #define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase // sammcj Enabled
----
-> //#define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase
-3859c3859
-<   #define HOST_START_MENU_ITEM          // Add a menu item that tells the host to start // sammcj Enabled
----
->   //#define HOST_START_MENU_ITEM          // Add a menu item that tells the host to start
-```

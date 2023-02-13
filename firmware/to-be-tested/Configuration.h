@@ -1192,7 +1192,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 550, 550, 100, 1000 }  // Ender Configs // sammcj increased X/Y by 50
+#define DEFAULT_MAX_ACCELERATION      { 550, 550, 110, 1050 }  // Ender Configs // sammcj increased X/Y/E by 50, Z by 10
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2  // MRiscoC allows higher limits
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1221,8 +1221,8 @@
  */
 #define CLASSIC_JERK  // Ender Configs
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 10  // Ender Configs // sammcj increased from 8
-  #define DEFAULT_YJERK 10  // Ender Configs // sammcj increased from 8
+  #define DEFAULT_XJERK 10.5  // Ender Configs // sammcj increased from 8
+  #define DEFAULT_YJERK 10.5  // Ender Configs // sammcj increased from 8
   #define DEFAULT_ZJERK  0.4  // Ender Configs
   //#define DEFAULT_IJERK  0.3
   //#define DEFAULT_JJERK  0.3
@@ -1231,7 +1231,7 @@
   //#define DEFAULT_VJERK  0.3
   //#define DEFAULT_WJERK  0.3
 
-  //#define TRAVEL_EXTRA_XYJERK 0.0     // Additional jerk allowance for all travel moves
+  #define TRAVEL_EXTRA_XYJERK 1.0     // Additional jerk allowance for all travel moves // sammcj added
 
   #define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2  // Ender Configs
   #if ENABLED(LIMITED_JERK_EDITING)
@@ -1242,7 +1242,7 @@
 #if ENABLED(LIN_ADVANCE)
   #define DEFAULT_EJERK    15.0  // Set high for Linear Advance // sammcj added
 #else
-  #define DEFAULT_EJERK     5.0  // Ender Configs
+  #define DEFAULT_EJERK     5.5  // Ender Configs // sammcj increased by 0.5
 #endif
 
 /**
@@ -1710,8 +1710,8 @@
 #define X_MIN_POS 0  // MRiscoC Stock physical limit
 #define Y_MIN_POS 0  // MRiscoC Stock physical limit
 #define Z_MIN_POS 0
-#define X_MAX_POS 248  // MRiscoC Stock physical limit
-#define Y_MAX_POS 231  // MRiscoC Stock physical limit
+#define X_MAX_POS 245  // MRiscoC Stock physical limit // sammcj reduced slightly to prevent knocking
+#define Y_MAX_POS 230  // MRiscoC Stock physical limit // sammcj reduced slightly to prevent knocking
 #define Z_MAX_POS 250  // Ender Configs
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
@@ -2224,8 +2224,8 @@
 // Preheat Constants - Up to 10 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 200
-#define PREHEAT_1_TEMP_BED     65
+#define PREHEAT_1_TEMP_HOTEND 195
+#define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED     128 // Value from 0 to 255
 

@@ -10,6 +10,8 @@ My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
   - [Firmware](#firmware)
     - [Custom Firmware Further Customisations](#custom-firmware-further-customisations)
     - [Formatting SD Cards](#formatting-sd-cards)
+  - [Settings](#settings)
+    - [Feedrate calibration](#feedrate-calibration)
   - [Slicing](#slicing)
     - [Cura](#cura)
   - [Materials](#materials)
@@ -76,6 +78,32 @@ diskutil list # Find the SDCard you want to format
 diskutil info disk4s1 # Get the current SDCard info, assuming the disk is disk4s1
 sudo newfs_msdos -F 32 -b 4096 disk4s1 # Format the SDCard as FAT32 with a 4096 byte sector size, assuming the disk is disk4s1
 ```
+
+## Settings
+
+- Bed size (printable)
+  - X: 220mm
+  - Y: 220mm
+- Bed size (max)
+  - X: 245mm
+  - Y: 230mm
+- Feedrate (calibrated at the extruder (aka cold calibration): 95.7mm/s
+
+### Feedrate calibration
+
+(95.5+96.2+96.4)/3=96.033
+
+= Extrusion multiplier: 1.04
+
+Current estep: 93
+
+= E step multiplier found before: 1.04
+
+New estep value: 96.7
+
+(repeat)
+
+- Final estep value: 95.7
 
 ## Slicing
 

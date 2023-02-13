@@ -1,0 +1,216 @@
+{
+  "name": "eeprom_backup-20230214-091028",
+  "time": "2023-02-14 09:10:28",
+  "version": 1,
+  "data": {
+    "steps": {
+      "command": "M92",
+      "params": {
+        "X": 80,
+        "Y": 80,
+        "Z": 400,
+        "E": 95.7
+      }
+    },
+    "feedrate": {
+      "command": "M203",
+      "params": {
+        "X": 540,
+        "Y": 540,
+        "Z": 10.5,
+        "E": 50.5
+      }
+    },
+    "max_acceleration": {
+      "command": "M201",
+      "params": {
+        "X": 500,
+        "Y": 500,
+        "Z": 100,
+        "E": 5000
+      }
+    },
+    "print_acceleration": {
+      "command": "M204",
+      "params": {
+        "P": 500,
+        "R": 1000,
+        "T": 500
+      }
+    },
+    "probe_offset": {
+      "command": "M851",
+      "params": {
+        "X": -40,
+        "Y": -10,
+        "Z": -1.98
+      }
+    },
+    "home_offset": {
+      "command": "M206",
+      "params": {
+        "X": null,
+        "Y": null,
+        "Z": null
+      }
+    },
+    "endstop": {
+      "command": "M666",
+      "params": {
+        "X": null,
+        "Y": null,
+        "Z": null
+      }
+    },
+    "delta": {
+      "command": "M665",
+      "params": {
+        "L": null,
+        "R": null,
+        "H": null,
+        "S": null,
+        "X": null,
+        "Y": null,
+        "Z": null,
+        "A": null,
+        "B": null,
+        "C": null
+      }
+    },
+    "linear": {
+      "command": "M900",
+      "params": {
+        "K": null
+      }
+    },
+    "filament": {
+      "command": "M200",
+      "params": {
+        "D": 1.75
+      }
+    },
+    "hotend_pid": {
+      "command": "M301",
+      "params": {
+        "P": null,
+        "I": null,
+        "D": null
+      }
+    },
+    "bed_pid": {
+      "command": "M304",
+      "params": {
+        "P": 234.28,
+        "I": 45.05,
+        "D": 812.17
+      }
+    },
+    "hotend_mpc": {
+      "command": "M306",
+      "params": {
+        "A": null,
+        "C": null,
+        "F": null,
+        "H": null,
+        "P": null,
+        "R": null,
+        "E0": {
+          "A": 0.1338,
+          "C": 21.07,
+          "F": 0.1401,
+          "H": 0.0056,
+          "P": 40,
+          "R": 0.2005
+        }
+      }
+    },
+    "advanced": {
+      "command": "M205",
+      "params": {
+        "B": 20000,
+        "E": 5.1,
+        "J": null,
+        "S": 0,
+        "T": 0,
+        "X": 11,
+        "Y": 11,
+        "Z": 0.4
+      }
+    },
+    "autolevel": {
+      "command": "M420",
+      "params": {
+        "S": false,
+        "Z": 10
+      }
+    },
+    "material": {
+      "command": "M145",
+      "params": {
+        "H": null,
+        "B": null,
+        "F": null,
+        "S0": {
+          "H": 210,
+          "B": 70,
+          "F": 120
+        },
+        "S1": {
+          "H": 240,
+          "B": 90,
+          "F": 128
+        },
+        "S2": {
+          "H": 230,
+          "B": 80,
+          "F": 128
+        },
+        "S3": {
+          "H": 190,
+          "B": 50,
+          "F": 128
+        }
+      }
+    },
+    "filament_change": {
+      "command": "M603",
+      "params": {
+        "L": 0,
+        "U": 100
+      }
+    },
+    "filament_runout": {
+      "command": "M412",
+      "params": {
+        "D": 25,
+        "H": null,
+        "S": true
+      }
+    },
+    "tmc_current": {
+      "command": "M906",
+      "params": {
+        "E": null,
+        "X": null,
+        "Y": null,
+        "Z": null
+      }
+    },
+    "tmc_hybrid": {
+      "command": "M913",
+      "params": {
+        "X": null,
+        "Y": null,
+        "Z": null,
+        "E": null
+      }
+    },
+    "input_shaping": {
+      "command": "M593",
+      "params": {
+        "F": null,
+        "D": null
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+613c613
+< #define FAST_PWM_FAN    // Increase the fan PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino // sammcj Enabled src https://github.com/Lash-L/Ender-3-V2-Neo-Setup/wiki/Printer-Upgrades#steps-1
+---
+> //#define FAST_PWM_FAN    // Increase the fan PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino
+615c615
+<   #define FAST_PWM_FAN_FREQUENCY 31400  // Define here to override the defaults below // sammcj Enabled
+---
+>   //#define FAST_PWM_FAN_FREQUENCY 31400  // Define here to override the defaults below
+1058c1058
+<   #define TRAMMING_SCREW_THREAD 30 // sammcj The ender 3 v2 Neo uses M3 screws
+---
+>   #define TRAMMING_SCREW_THREAD 40
+1085,1086c1085,1086
+< #define INPUT_SHAPING_X // sammcj Enabled
+< #define INPUT_SHAPING_Y // sammcj Enabled
+---
+> //#define INPUT_SHAPING_X
+> //#define INPUT_SHAPING_Y
+1098c1098
+<   #define SHAPING_MENU                // Add a menu to the LCD to set shaping parameters. // sammcj Enabled
+---
+>   //#define SHAPING_MENU                // Add a menu to the LCD to set shaping parameters.
+1380c1380
+<   #define PROBE_OFFSET_WIZARD       // Add a Probe Z Offset calibration option to the LCD menu // sammcj Enabled
+---
+>   //#define PROBE_OFFSET_WIZARD       // Add a Probe Z Offset calibration option to the LCD menu
+1387c1387
+<     #define PROBE_OFFSET_WIZARD_START_Z -2.0 // sammcj (safer / less likely to hit bed)
+---
+>     //#define PROBE_OFFSET_WIZARD_START_Z -4.0
+1390c1390
+<     #define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER } // sammcj enabled
+---
+>     //#define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
+1657c1657
+<   #define AUTO_REPORT_SD_STATUS         // Auto-report media status with 'M27 S<seconds>' // sammcj Enabled
+---
+>   //#define AUTO_REPORT_SD_STATUS         // Auto-report media status with 'M27 S<seconds>'
+1730c1730
+<     #define CUSTOM_FIRMWARE_UPLOAD  // MRiscoC Enabled for easy firmware upgrade . // sammcj Enabled
+---
+>     //#define CUSTOM_FIRMWARE_UPLOAD  // MRiscoC Enabled for easy firmware upgrade
+2191c2191
+<   // #define OPTIMIZED_MESH_STORAGE  // Store mesh with less precision to save EEPROM space // sammcj Disabled
+---
+>   #define OPTIMIZED_MESH_STORAGE  // Store mesh with less precision to save EEPROM space
+2503c2503
+< #define EXTRA_FAN_SPEED // sammcj Enabled
+---
+> //#define EXTRA_FAN_SPEED
+2526c2526
+<   #define RETRACT_LENGTH                5.75   // (mm) Default retract length (positive value)  // MRiscoC Bowden // sammcj
+---
+>   #define RETRACT_LENGTH                5   // (mm) Default retract length (positive value)  // MRiscoC Bowden
+2528,2529c2528,2529
+<   #define RETRACT_FEEDRATE             50   // (mm/s) Default feedrate for retracting  // MRiscoC Bowden // sammcj
+<   #define RETRACT_ZRAISE                0.24   // (mm) Default retract Z-raise  // MRiscoC Bowden // sammcj
+---
+>   #define RETRACT_FEEDRATE             40   // (mm/s) Default feedrate for retracting  // MRiscoC Bowden
+>   #define RETRACT_ZRAISE                0.2   // (mm) Default retract Z-raise  // MRiscoC Bowden
+3612c3612
+< #define AUTO_REPORT_POSITION // sammcj Enabled
+---
+> //#define AUTO_REPORT_POSITION
+3685c3685
+< #define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase // sammcj Enabled
+---
+> //#define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase
+3859c3859
+<   #define HOST_START_MENU_ITEM          // Add a menu item that tells the host to start // sammcj Enabled
+---
+>   //#define HOST_START_MENU_ITEM          // Add a menu item that tells the host to start
