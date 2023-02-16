@@ -1221,8 +1221,8 @@
  */
 #define CLASSIC_JERK  // Ender Configs
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 10.5  // Ender Configs // sammcj increased from 8
-  #define DEFAULT_YJERK 10.5  // Ender Configs // sammcj increased from 8
+  #define DEFAULT_XJERK 10    // Ender Configs // sammcj increased from 8
+  #define DEFAULT_YJERK 10    // Ender Configs // sammcj increased from 8
   #define DEFAULT_ZJERK  0.4  // Ender Configs
   //#define DEFAULT_IJERK  0.3
   //#define DEFAULT_JJERK  0.3

@@ -13,11 +13,13 @@ My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
   - [Settings](#settings)
     - [Feedrate calibration](#feedrate-calibration)
   - [Slicing](#slicing)
+  - [Prusa Slicer](#prusa-slicer)
     - [Cura](#cura)
   - [Materials](#materials)
   - [GCode scripts](#gcode-scripts)
   - [Octoprint](#octoprint)
     - [Octoprint Docker](#octoprint-docker)
+  - [Failed print recovery](#failed-print-recovery)
     - [Webcam](#webcam)
   - [Links](#links)
   - [Author](#author)
@@ -64,7 +66,7 @@ Note: To store the mesh and other settings on the printer you must leave a SD pl
 
 ### Custom Firmware Further Customisations
 
-- See [firmware](firmware)
+- See [firmware](firmware/README.md)
 
 ### Formatting SD Cards
 
@@ -107,6 +109,10 @@ New estep value: 96.7
 
 ## Slicing
 
+## Prusa Slicer
+
+- Running the [latest beta/alpha version](https://github.com/prusa3d/PrusaSlicer/releases).
+
 ### Cura
 
 - [Ultimaker Cura](https://ultimaker.com/software/ultimaker-cura).
@@ -118,7 +124,7 @@ _Note: Creality's own '[Creality Slicer](https://www.creality.com/pages/download
 
 - See [cura/materials](cura/materials)
 
-- PLA+ (eSun)
+- PLA+ (eSun, yxpolyer)
   - Extruder Temperature: 208°C
     - Initial Layer Temperature: 210°C
   - Platform Temperature: 68°C
@@ -133,6 +139,12 @@ _Note: Creality's own '[Creality Slicer](https://www.creality.com/pages/download
 ### Octoprint Docker
 
 - See [octoprint/docker-compose.yml](octoprint/docker-compose.yml)
+
+## Failed print recovery
+
+I've created a GCODE template that can be used to recover/resume from a failed print.
+
+- See [gcodes/manual-print-recovery.gcode](gcodes/manual-print-recovery.gcode)
 
 ### Webcam
 
@@ -151,6 +163,7 @@ URLs for reaching the camera from outside the container are:
 
 - <https://github.com/mriscoc/Ender3V2S1>
 - <https://github.com/Lash-L/Ender-3-V2-Neo-Setup>
+- <https://github.com/norpchen/ProcessGCode>
 
 ## Author
 

@@ -619,14 +619,14 @@ M190 S{material_bed_temperature_layer_0} ; heat to Cura Bed setting
 M109 S{material_print_temperature_layer_0}  T0 ; heat to Cura Hotend
 ;*** End Preheating ***
 ;--------------------------------------------
-; Powerloss recovery (writes to SD)
-M413    ; Get the current state
-M413 S1 ; Enable powerloss recovery
-;--------------------------------------------
 ; Load UBL mesh and tilt
 G29 A; Activate UBL
 G29 L0; Load the mesh from slot 0
 G29 J; Tilt the mesh after a three point probe
+;--------------------------------------------
+; Powerloss recovery (writes to SD)
+M413    ; Get the current state
+M413 S1 ; Enable powerloss recovery
 ;--------------------------------------------
 ;*** Draw a Nozzle Cleaning line on the Left Side of Bed
 G28 ;Home

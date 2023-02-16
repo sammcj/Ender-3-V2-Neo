@@ -3,7 +3,7 @@
 ;----------------------------
 ; Before print starts
 ;----------------------------
-M75 {{ event.name | truncate:85:... }}
+M75 {{ event.name }}
 
 ;;; These are now all provided by Cura during slicing ;;;
 ; G29 A ;Automatic Bed Levelling (ABL) Activate
@@ -51,6 +51,7 @@ M117 Print was cancelled
 ;----------------------------
 ; When print is paused
 ;----------------------------
+; NOTE - RESUMING FROM PAUSE SEEMS TO BE BROKEN IN THE LATEST MARLIN FW
 M76 ; Pause print screen
 M600 ; Smart Pause
 M117 Print was paused
@@ -58,5 +59,6 @@ M117 Print was paused
 ;----------------------------
 ; When print is resumed
 ;----------------------------
-M75 {{ event.name | truncate:85:... }}
+M75 {{ event.name }}
+
 M117 Print was resumed
