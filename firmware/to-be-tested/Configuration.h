@@ -1172,7 +1172,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 95.7 }  // Ender Configs // sammcj after running calibration
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 96.2 }  // Ender Configs // sammcj after running calibration 2022-03-17 (Creality Spider + 0.4mm nozzle)
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
@@ -1192,7 +1192,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 550, 550, 110, 1050 }  // Ender Configs // sammcj increased X/Y/E by 50, Z by 10
+#define DEFAULT_MAX_ACCELERATION      { 500, 500, 100, 1000 }  // Ender Configs
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2  // MRiscoC allows higher limits
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1242,7 +1242,7 @@
 #if ENABLED(LIN_ADVANCE)
   #define DEFAULT_EJERK    15.0  // Set high for Linear Advance // sammcj added
 #else
-  #define DEFAULT_EJERK     5.5  // Ender Configs // sammcj increased by 0.5
+  #define DEFAULT_EJERK     5  // Ender Configs
 #endif
 
 /**
