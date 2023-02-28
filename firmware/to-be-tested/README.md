@@ -2,6 +2,14 @@
 
 Changes from MRiscoC's special configuration for Ender3V2-422-BLTUBL-MPC
 
+Hardware changes:
+
+- Creality Spider v3 (300) Hotend
+- Drive drive
+- E3D / Creality Titan Extruder
+- Upgraded Fans
+- Dual Z Axis
+
 See:
 
 - [diffs/mriscoc/Configuration.diff](diffs/mriscoc/Configuration.diff)

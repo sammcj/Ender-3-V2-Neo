@@ -623,15 +623,15 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 300  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_1_MAXTEMP 300  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_2_MAXTEMP 300  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_3_MAXTEMP 300  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_4_MAXTEMP 300  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_5_MAXTEMP 300  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_6_MAXTEMP 300  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_7_MAXTEMP 300  // sammcj changed for Creality Spider All-Metal Hotend
-#define BED_MAXTEMP      120  // Ender3V2 Configs
+#define HEATER_0_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_1_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_2_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_3_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_4_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_5_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_6_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_7_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
+#define BED_MAXTEMP      90  // Ender3V2 Configs // sammcj lowered for safety
 #define CHAMBER_MAXTEMP  60
 
 /**
@@ -1172,14 +1172,14 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 96.2 }  // Ender Configs // sammcj after running calibration 2022-03-17 (Creality Spider + 0.4mm nozzle)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 405.9 }  // Ender Configs // sammcj after running calibration 2023-02-28 (Creality Spider v3 + Direct Drive Titan Exruder + 0.4mm nozzle)
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 25, 60 }  // Ender Configs
+#define DEFAULT_MAX_FEEDRATE          { 300, 300, 25, 60 }  // Ender Configs // sammcj Titan Extruder 2023-02-28
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2  // MRiscoC allows higher limits
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1221,8 +1221,8 @@
  */
 #define CLASSIC_JERK  // Ender Configs
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 10    // Ender Configs // sammcj increased from 8
-  #define DEFAULT_YJERK 10    // Ender Configs // sammcj increased from 8
+  #define DEFAULT_XJERK 9.5    // Ender Configs // sammcj increased from 8
+  #define DEFAULT_YJERK 9.5    // Ender Configs // sammcj increased from 8
   #define DEFAULT_ZJERK  0.4  // Ender Configs
   //#define DEFAULT_IJERK  0.3
   //#define DEFAULT_JJERK  0.3
@@ -1242,7 +1242,7 @@
 #if ENABLED(LIN_ADVANCE)
   #define DEFAULT_EJERK    15.0  // Set high for Linear Advance // sammcj added
 #else
-  #define DEFAULT_EJERK     5  // Ender Configs
+  #define DEFAULT_EJERK     5.3  // Ender Configs // sammcj Titan direct drive extruder 2023-02-28
 #endif
 
 /**
@@ -1492,7 +1492,7 @@
  *     O-- FRONT --+
  */
 // #define NOZZLE_TO_PROBE_OFFSET { -41.5, -7, 0 }  // MRiscoC BLTouch offset for support: https://www.thingiverse.com/thing:4605354 (z-offset = -1.80 mm)
-#define NOZZLE_TO_PROBE_OFFSET { -37, -12.2, -1.47 }  // sammcj CR-Touch Ender 3 v2 Neo - https://github.com/Lash-L/Ender-3-V2-Neo-Setup/wiki/Updating-Firmware
+#define NOZZLE_TO_PROBE_OFFSET { -55, -15, -3.3 }  // sammcj CR-Touch Ender 3 v2 Neo with Direct Drive Titan Extruder, Spider v3 300 hot end 2023-02-28
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1661,7 +1661,7 @@
 
 // @section extruder
 
-// For direct drive extruder v9 set to true, for geared extruder set to false.
+// For direct drive extruder v9 set to true, for geared extruder set to false. // TODO: Sam to look into this for the E3D Titan
 #define INVERT_E0_DIR false
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
@@ -1686,7 +1686,7 @@
 //#define Z_HOMING_HEIGHT  10      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...  // MRiscoC Crearance over the bed
                                   // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
-#define Z_AFTER_HOMING  5      // (mm) Height to move to after homing Z  // MRiscoC Crearance over the bed // sammcj Enabled
+#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z  // MRiscoC Crearance over the bed // sammcj Enabled and set higher for safety
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
@@ -1710,9 +1710,9 @@
 #define X_MIN_POS 0  // MRiscoC Stock physical limit
 #define Y_MIN_POS 0  // MRiscoC Stock physical limit
 #define Z_MIN_POS 0
-#define X_MAX_POS 245  // MRiscoC Stock physical limit // sammcj reduced slightly to prevent knocking
+#define X_MAX_POS 242  // MRiscoC Stock physical limit // sammcj reduced slightly to prevent knocking
 #define Y_MAX_POS 230  // MRiscoC Stock physical limit // sammcj reduced slightly to prevent knocking
-#define Z_MAX_POS 250  // Ender Configs
+#define Z_MAX_POS 248  // Ender Configs // sammcj reduced slightly to prevent knocking
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
 //#define J_MIN_POS 0

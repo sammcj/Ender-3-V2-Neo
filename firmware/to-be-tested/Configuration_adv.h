@@ -612,7 +612,7 @@
  */
 #define FAST_PWM_FAN    // Increase the fan PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino // sammcj Enabled src https://github.com/Lash-L/Ender-3-V2-Neo-Setup/wiki/Printer-Upgrades#steps-1
 #if ENABLED(FAST_PWM_FAN)
-  #define FAST_PWM_FAN_FREQUENCY 31400  // Define here to override the defaults below // sammcj Enabled
+  // #define FAST_PWM_FAN_FREQUENCY 31400  // Define here to override the defaults below
   //#define USE_OCR2A_AS_TOP
   #ifndef FAST_PWM_FAN_FREQUENCY
     #ifdef __AVR__
@@ -1384,7 +1384,7 @@
      * Use a height slightly above the estimated nozzle-to-probe Z offset.
      * For example, with an offset of -5, consider a starting height of -4.
      */
-    #define PROBE_OFFSET_WIZARD_START_Z -2.0 // sammcj (safer / less likely to hit bed)
+    #define PROBE_OFFSET_WIZARD_START_Z 0 // sammcj (safer / less likely to hit bed)
 
     // Set a convenient position to do the calibration (probing point and nozzle/bed-distance)
     #define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER } // sammcj enabled
@@ -2523,10 +2523,10 @@
     #define MIN_AUTORETRACT             0.1 // (mm) Don't convert E moves under this length
     #define MAX_AUTORETRACT            10.0 // (mm) Don't convert E moves over this length
   #endif
-  #define RETRACT_LENGTH                5.75   // (mm) Default retract length (positive value)  // MRiscoC Bowden // sammcj
+  #define RETRACT_LENGTH               2.6   // (mm) Default retract length (positive value)  // MRiscoC Bowden // sammcj Titan Direct Drive Extruder
   #define RETRACT_LENGTH_SWAP          13   // (mm) Default swap retract length (positive value)
   #define RETRACT_FEEDRATE             50   // (mm/s) Default feedrate for retracting  // MRiscoC Bowden // sammcj
-  #define RETRACT_ZRAISE                0.24   // (mm) Default retract Z-raise  // MRiscoC Bowden // sammcj
+  #define RETRACT_ZRAISE                0.28   // (mm) Default retract Z-raise  // MRiscoC Bowden // sammcj
   #define RETRACT_RECOVER_LENGTH        0   // (mm) Default additional recover length (added to retract length on recover)
   #define RETRACT_RECOVER_LENGTH_SWAP   0   // (mm) Default additional swap recover length (added to retract length on recover from toolchange)
   #define RETRACT_RECOVER_FEEDRATE      40   // (mm/s) Default feedrate for recovering from retraction  // MRiscoC Bowden
@@ -3682,7 +3682,7 @@
 //#define MEATPACK_ON_SERIAL_PORT_1
 //#define MEATPACK_ON_SERIAL_PORT_2
 
-#define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase // sammcj Enabled
+// #define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase
 
 //#define REPETIER_GCODE_M360     // Add commands originally from Repetier FW
 

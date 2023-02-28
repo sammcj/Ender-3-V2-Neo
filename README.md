@@ -33,12 +33,15 @@ My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
 
 ### Upgrades
 
-- Hotend is a Creality Spider (300)
-- Upgraded hotend fan to a 4020.
+- Hotend is a Creality Spider v3 (300)
+- E3D/Creality Titan Extruder
+- Drive drive conversation
+- Dual Z Axis
+- Upgraded hotend fan to a 4020
 - Hero Me Gen 7 (Work In Progress - Not yet in use!)
-  - 2x 5015 Blower fans for part cooling.
-  - 1x 4020 Fan for the hotend.
-  - 1x 80mm Fan for the PSU.
+  - 2x 5015 Blower fans for part cooling
+  - 1x 4020 Fan for the hotend
+  - 1x 80mm Fan for the PSU
 
 ### Connectivity
 
@@ -112,6 +115,13 @@ New estep value: 96.7
 ## Prusa Slicer
 
 - Running the [latest beta/alpha version](https://github.com/prusa3d/PrusaSlicer/releases).
+- See [prusa-slicer](prusa-slicer).
+
+Output Options
+
+```shell
+/Users/samm/bin/ArcWelder --g90-influences-extruder;
+```
 
 ### Cura
 

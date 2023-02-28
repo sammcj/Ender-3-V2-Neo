@@ -6,8 +6,8 @@ M117 Print Completed
 ;-------------------------------------------
 
 G91 ;Relative positioning
-G1 E2 F2700 ;Retract a bit
-G1 E2 Z0.2 F2400 ;Retract and raise Z
+G1 E2 F2850 ;Retract a bit (more)
+G1 E2 Z0.2 F2500 ;Retract (more) and raise Z
 G1 X5 Y5 F3000 ;Wipe out
 
 ; Cooldown
