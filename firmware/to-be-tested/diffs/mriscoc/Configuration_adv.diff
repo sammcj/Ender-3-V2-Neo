@@ -1,9 +1,13 @@
+520c520
+<   #define HOTEND_IDLE_MIN_TRIGGER   150     // (°C) Minimum temperature to enable hotend protection
+---
+>   #define HOTEND_IDLE_MIN_TRIGGER   180     // (°C) Minimum temperature to enable hotend protection
 613c613
 < #define FAST_PWM_FAN    // Increase the fan PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino // sammcj Enabled src https://github.com/Lash-L/Ender-3-V2-Neo-Setup/wiki/Printer-Upgrades#steps-1
 ---
 > //#define FAST_PWM_FAN    // Increase the fan PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino
 615c615
-<   #define FAST_PWM_FAN_FREQUENCY 31400  // Define here to override the defaults below // sammcj Enabled
+<   // #define FAST_PWM_FAN_FREQUENCY 31400  // Define here to override the defaults below
 ---
 >   //#define FAST_PWM_FAN_FREQUENCY 31400  // Define here to override the defaults below
 1058c1058
@@ -25,7 +29,7 @@
 ---
 >   //#define PROBE_OFFSET_WIZARD       // Add a Probe Z Offset calibration option to the LCD menu
 1387c1387
-<     #define PROBE_OFFSET_WIZARD_START_Z -2.0 // sammcj (safer / less likely to hit bed)
+<     #define PROBE_OFFSET_WIZARD_START_Z 0 // sammcj (safer / less likely to hit bed)
 ---
 >     //#define PROBE_OFFSET_WIZARD_START_Z -4.0
 1390c1390
@@ -49,12 +53,12 @@
 ---
 > //#define EXTRA_FAN_SPEED
 2526c2526
-<   #define RETRACT_LENGTH                5.75   // (mm) Default retract length (positive value)  // MRiscoC Bowden // sammcj
+<   #define RETRACT_LENGTH               2.85   // (mm) Default retract length (positive value)  // MRiscoC Bowden // sammcj Titan Direct Drive Extruder
 ---
 >   #define RETRACT_LENGTH                5   // (mm) Default retract length (positive value)  // MRiscoC Bowden
 2528,2529c2528,2529
 <   #define RETRACT_FEEDRATE             50   // (mm/s) Default feedrate for retracting  // MRiscoC Bowden // sammcj
-<   #define RETRACT_ZRAISE                0.24   // (mm) Default retract Z-raise  // MRiscoC Bowden // sammcj
+<   #define RETRACT_ZRAISE                0.28   // (mm) Default retract Z-raise  // MRiscoC Bowden // sammcj
 ---
 >   #define RETRACT_FEEDRATE             40   // (mm/s) Default feedrate for retracting  // MRiscoC Bowden
 >   #define RETRACT_ZRAISE                0.2   // (mm) Default retract Z-raise  // MRiscoC Bowden
@@ -63,7 +67,7 @@
 ---
 > //#define AUTO_REPORT_POSITION
 3685c3685
-< #define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase // sammcj Enabled
+< // #define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase
 ---
 > //#define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase
 3859c3859
