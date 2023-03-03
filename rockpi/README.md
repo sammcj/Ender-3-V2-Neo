@@ -5,9 +5,9 @@ Used as OctoPrint host
 ## Armbian
 
 ```shell
-apt install -y setserial irqtop borgmatic borgbackup firmware-brcm80211 hwinfo jq lshw usbutils v4l-utils zstd libzstd1 python3-zstd socat fzf aria2 nullmailer
+apt install -y setserial irqtop borgmatic borgbackup firmware-brcm80211 hwinfo jq lshw usbutils v4l-utils zstd libzstd1 python3-zstd socat fzf aria2 nullmailer build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev
 
-systemctl disable bluetooth.service vnstat.service console-getty.service
+systemctl disable bluetooth.service vnstat.service console-getty.service wpa_supplicant.service
 systemctl enable nullmailer
 
 
@@ -87,3 +87,24 @@ Do flow rate test such as <https://www.thingiverse.com/thing:4810337>
 ### Titan Direct Drive Extruder Calibration
 
 ESteps: 405.9
+
+## Python 3.11
+
+```shell
+wget https://www.python.org/ftp/python/3.11.2/Python-3.11.2.tgz
+tar -xzvf Python-3.11.2.tgz
+cd Python-3.11.2/
+
+apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev
+
+./configure --enable-optimizations
+make -j `nproc`
+make altinstall
+
+update-alternatives --install /usr/bin/python3 python /usr/local/bin/python3.11 1
+python -V
+
+python3 -m venv /home/octo/OctoPrint
+
+/home/octo/OctoPrint/bin/pip install --upgrade pip wheel OctoPrint
+```
