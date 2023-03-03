@@ -80,13 +80,13 @@ Measured 3 lengths of 100mm from the extruder:
 
 Current E Step: 96.7
 
-- Calculated new E Step value: `95.7`
+- Calculated new E Step value: `95.7` (stock extruder)
 
 Do flow rate test such as <https://www.thingiverse.com/thing:4810337>
 
 ### Titan Direct Drive Extruder Calibration
 
-ESteps: 405.9
+- E Steps: `405.9`
 
 ## Python 3.11
 
@@ -104,7 +104,30 @@ make altinstall
 update-alternatives --install /usr/bin/python3 python /usr/local/bin/python3.11 1
 python -V
 
+python -m ensurepip --upgrade
+python -m pip install --upgrade pip
+
 python3 -m venv /home/octo/OctoPrint
 
 /home/octo/OctoPrint/bin/pip install --upgrade pip wheel OctoPrint
 ```
+
+## Klipper
+
+Note: This has not been used / tested yet.
+
+The Klipper install-debian.sh (./klipper/scripts/install-debian.sh) seems to be for an older version of Debian.
+
+```shell
+apt install -y virtualenv python3-dev python3-libgpiod liblmdb-dev libffi-dev build-essential libncurses-dev libncurses-dev libncurses-dev stm32flash libnewlib-arm-none-eabi gcc-arm-none-eabi binutils-arm-none-eabi libusb-1.0-0 pkg-config libstdc++-arm-none-eabi-newlib nginx
+```
+
+```shell
+su - octo
+
+git clone https://github.com/th33xitus/kiauh.git --depth=1
+
+./kiauh/kiauh.sh
+```
+
+Don't forget to disable the systemd services if you don't want them to run.
