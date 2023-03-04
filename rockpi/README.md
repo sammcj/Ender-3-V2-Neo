@@ -139,6 +139,7 @@ git clone https://github.com/th33xitus/kiauh.git --depth=1
 If setting it up, but not going to use it don't forget to disable the systemd services if you don't want them to run, and make sure not to boot into graphical mode.
 
 ```shell
-systemctl disable klipper moonraker mainsail fluidd klipperscreen prettygcode
+systemctl disable klipper moonraker mainsail fluidd KlipperScreen prettygcode
 systemctl set-default multi-user.target # boot to CLI not graphical (graphical.target)
+systemctl|grep running
 ```
