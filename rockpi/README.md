@@ -104,8 +104,9 @@ python3.9 -c "import sysconfig; print(sysconfig.get_config_var('CONFIG_ARGS'))"
 make -j `nproc`
 make altinstall
 
-update-alternatives --install /usr/bin/python3 python /usr/local/bin/python3.11 1
+update-alternatives --install /usr/bin/python3 python /usr/local/bin/python3.11 1 # OPTIONAL - only if you want to make it the default python
 python -V
+python3.11 -c "import sysconfig; print(sysconfig.get_config_var('CONFIG_ARGS'))" # just to confirm the build configuration was correctly applied
 
 python -m ensurepip --upgrade
 python -m pip install --upgrade pip
@@ -118,6 +119,8 @@ python3 -m venv /home/octo/OctoPrint
 ## Klipper
 
 Note: This has not been used / tested yet.
+
+TODO: haproxy may need to be uninstalled or at least reconfigured.
 
 The Klipper install-debian.sh (./klipper/scripts/install-debian.sh) seems to be for an older version of Debian.
 
@@ -133,4 +136,9 @@ git clone https://github.com/th33xitus/kiauh.git --depth=1
 ./kiauh/kiauh.sh
 ```
 
-Don't forget to disable the systemd services if you don't want them to run.
+If setting it up, but not going to use it don't forget to disable the systemd services if you don't want them to run, and make sure not to boot into graphical mode.
+
+```shell
+systemctl disable klipper moonraker mainsail fluidd klipperscreen prettygcode
+systemctl set-default multi-user.target # boot to CLI not graphical (graphical.target)
+```
