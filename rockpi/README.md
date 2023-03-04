@@ -97,7 +97,10 @@ cd Python-3.11.2/
 
 apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev
 
-./configure --enable-optimizations
+python3.9 -c "import sysconfig; print(sysconfig.get_config_var('CONFIG_ARGS'))"
+
+# ./configure --enable-optimizations # adding any other desired config options from above command, e.g:
+./configure '--enable-shared' '--enable-ipv6' '--enable-loadable-sqlite-extensions' '--with-dbmliborder=bdb:gdbm' '--with-computed-gotos' '--without-ensurepip' '--with-system-expat' '--with-system-libmpdec' '--with-system-ffi' 'CC=aarch64-linux-gnu-gcc' '--enable-optimizations'
 make -j `nproc`
 make altinstall
 
