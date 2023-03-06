@@ -12,6 +12,9 @@ My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
     - [Formatting SD Cards](#formatting-sd-cards)
   - [Settings](#settings)
     - [Feedrate calibration](#feedrate-calibration)
+      - [Stock Ender 3 v2 Neo Extruder](#stock-ender-3-v2-neo-extruder)
+      - [E3D Titan Extruder](#e3d-titan-extruder)
+      - [LDO Orbiter 2.0 Extruder](#ldo-orbiter-20-extruder)
   - [Slicing](#slicing)
   - [Prusa Slicer](#prusa-slicer)
     - [Cura](#cura)
@@ -96,19 +99,59 @@ sudo newfs_msdos -F 32 -b 4096 disk4s1 # Format the SDCard as FAT32 with a 4096 
 
 ### Feedrate calibration
 
-(95.5+96.2+96.4)/3=96.033
+#### Stock Ender 3 v2 Neo Extruder
 
-= Extrusion multiplier: 1.04
+(95.5+96.2+96.4)/3=96.033 = Extrusion multiplier: 1.04
 
-Current estep: 93
+Current estep: 93 = E step multiplier found before: 1.04
 
-= E step multiplier found before: 1.04
-
-New estep value: 96.7
-
-(repeat)
+New estep value: 96.7, (repeat)
 
 - Final estep value: 95.7
+
+#### E3D Titan Extruder
+
+Creality Titan Kit
+
+- Final estep value: 406.0
+
+#### LDO Orbiter 2.0 Extruder
+
+Default config:
+
+- E350 E16 ; micro stepping to 16
+- M92 E690 ; set extruder steps/mm to 690 defaults (needs to be calibrated)
+- M201 E3000 ; set max acceleration to 3000/s2 (can go to 8000, but 3000 should be good)
+- M203 E120 ; set max speed to 120mm/s
+- M205 E5 ; set acceleration to 5mm/s2
+- M906 TO E850 ; set motor current to 850mA
+- M900 TO K0.22 L0.02 ; set Linear Advance defaults (needs to be calibrated)
+- M207 S1.5 F7200 Z0.2 ; firmware retraction (needs to be calibrated - 1.0~1.5mm)
+- Pressure Advance: 0.2~0.3s (needs to be calibrated)
+- Max. instantaneous speed change (jerk): 10mm/s (Marlin) (recommended 300/5)
+- Motor current: 1.2A Peak or 0.85A RMS (LDO-36STH20-1004AHG)
+- Drive motor with stealth chop disabled
+- Resistor shunt for Ender 3 v2 Neo Trinamic TMC2130, TMC2208, TMC2209, TMC2225, TMC2226 - Rshunt = 0.11Ω => Vref =1.2V, Vref = Imot*(Rsunt+20mΩ)/92.85mV
+  - Vref -> reference voltage measured on the trimmer resistor
+  - Imot - desired peak motor current - for the Orbiter v2.0 recommended value is 1.2A
+  - Rsunt - shunt resistor or sense resistor value defined in Ohms.
+  - See <https://orbiterprojects.com/orbiter-v2-0/>
+
+And remember to do a M500 to save settings
+
+```gcode
+M350 E16                        ;micro stepping set to 16*
+M92 E690                        ;steps/mm - you may need to fine tune it
+M201 E3000                    ;acceleration mm/s2
+M203 E120                      ;max speed mm/s
+M205 E5                          ;E jerk mm/s
+M906 T0 E850                 ;motor RMS current in mA*
+M900 T0 K0.22 L0.02      ;linear advance values to be calibrated*
+M207 S1.5 F7200 Z0.2    ;firmware retraction*
+M500                                ;save settings to EEPROM
+```
+
+- Calibrated estep: #TODO:
 
 ## Slicing
 
