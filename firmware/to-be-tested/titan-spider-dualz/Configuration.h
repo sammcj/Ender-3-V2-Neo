@@ -624,14 +624,14 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_1_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_2_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_3_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_4_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_5_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_6_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
-#define HEATER_7_MAXTEMP 240  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_0_MAXTEMP 250  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_1_MAXTEMP 250  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_2_MAXTEMP 250  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_3_MAXTEMP 250  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_4_MAXTEMP 250  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_5_MAXTEMP 250  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_6_MAXTEMP 250  // sammcj changed for Creality Spider All-Metal Hotend
+#define HEATER_7_MAXTEMP 250  // sammcj changed for Creality Spider All-Metal Hotend
 #define BED_MAXTEMP      90  // Ender3V2 Configs // sammcj lowered for safety
 #define CHAMBER_MAXTEMP  60
 
@@ -1173,7 +1173,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 405.9 }  // Ender Configs // sammcj after running calibration 2023-02-28 (Creality Spider v3 + Direct Drive Titan Exruder + 0.4mm nozzle)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 406 }  // Ender Configs // sammcj after running calibration 2023-03-08 (Creality Spider v3 + Direct Drive Titan Exruder + 0.4mm nozzle)
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
@@ -1493,7 +1493,7 @@
  *     O-- FRONT --+
  */
 // #define NOZZLE_TO_PROBE_OFFSET { -41.5, -7, 0 }  // MRiscoC BLTouch offset for support: https://www.thingiverse.com/thing:4605354 (z-offset = -1.80 mm)
-#define NOZZLE_TO_PROBE_OFFSET { -55, -15, -3.3 }  // sammcj CR-Touch Ender 3 v2 Neo with Direct Drive Titan Extruder, Spider v3 300 hot end 2023-02-28
+#define NOZZLE_TO_PROBE_OFFSET { -54.7, -12.2, -3.3 }  // sammcj CR-Touch Ender 3 v2 Neo with Direct Drive Titan Extruder, Spider v3 300 hot end 2023-02-28
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1711,7 +1711,7 @@
 #define X_MIN_POS 0  // MRiscoC Stock physical limit
 #define Y_MIN_POS 0  // MRiscoC Stock physical limit
 #define Z_MIN_POS 0
-#define X_MAX_POS 242  // MRiscoC Stock physical limit // sammcj reduced slightly to prevent knocking
+#define X_MAX_POS 240  // MRiscoC Stock physical limit // sammcj reduced slightly to prevent knocking
 #define Y_MAX_POS 230  // MRiscoC Stock physical limit // sammcj reduced slightly to prevent knocking
 #define Z_MAX_POS 248  // Ender Configs // sammcj reduced slightly to prevent knocking
 //#define I_MIN_POS 0
@@ -2311,7 +2311,7 @@
 
 #if ENABLED(NOZZLE_CLEAN_FEATURE)
   // Default number of pattern repetitions
-  #define NOZZLE_CLEAN_STROKES  6 // sammcj
+  #define NOZZLE_CLEAN_STROKES  8 // sammcj
 
   // Default number of triangles
   #define NOZZLE_CLEAN_TRIANGLES  3

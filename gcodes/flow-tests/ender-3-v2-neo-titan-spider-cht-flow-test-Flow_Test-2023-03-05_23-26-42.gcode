@@ -1,19 +1,19 @@
+; Printer hardware when this was generated
+; Ender 3 v2 Neo
+; e3d Titan Extruder (direct drive)
+; creality spider hot end (I think v3?)
+; stock titan/spider cooling at present
+; knock-off aliexpress CHT high flow nozzle with 0.6mm hole (not that it should matter for this)
+; 1.75mm filament
+
 ; *** FlowTestGenerator.js (v0.4.6) by iFallUpHill
 ; *** https://github.com/iFallUpHill/flow-calculator
 ; *** Based on CNCKitchen's ExtrusionSystemBenchmark by Stefan Hermann
 ; *** https://github.com/CNCKitchen/ExtrusionSystemBenchmark
 
-; Printer hardware when this was generated
-; Ender 3 v2 Neo
-; e3d Titan Extruder (direct drive)
-; creality spider hot end
-; stock titan/spider cooling at present
-; knock-off aliexpress CHT high flow nozzle with 0.6mm hole (not that it should matter for this)
-; 1.75mm filament
-
 ;####### Settings
-; bedWidth = 225
-; bedLength = 225
+; bedWidth = 220
+; bedLength = 220
 ; bedMargin = 5
 ; safeZPark = 10
 ; filamentDiameter = 1.75
@@ -44,6 +44,9 @@
 ;####### Start Gcode
 M104 S200 ; Set Nozzle Temperature
 M140 S70 ; Set Bed Temperature
+
+G29 A; Activate UBL
+G29 L0; Load the mesh from slot 0
 
 G90 ; Absolute positioning
 G28 ; Move to home position
@@ -266,7 +269,7 @@ G92 E0 ; Reset Extruder
 
 ;####### End Gcode
 G4 ; Wait for buffer to clear
-G0 X220 Y220 ; Move to Corner
+G0 X215 Y215 ; Move to Corner
 M104 S0 T0 ; Turn Off Hotend
 M106 S0 ;Turn-off fan
 M140 S0 ; Turn Off Bed
