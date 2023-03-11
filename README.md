@@ -6,6 +6,8 @@ My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
 - [Sam's Ender 3 V2 Neo Setup](#sams-ender-3-v2-neo-setup)
   - [Hardware](#hardware)
     - [Upgrades](#upgrades)
+      - [Future Upgrades](#future-upgrades)
+      - [Previous Upgrades](#previous-upgrades)
     - [Connectivity](#connectivity)
   - [Firmware](#firmware)
     - [Custom Firmware Further Customisations](#custom-firmware-further-customisations)
@@ -24,6 +26,7 @@ My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
     - [Octoprint Docker](#octoprint-docker)
   - [Failed print recovery](#failed-print-recovery)
     - [Webcam](#webcam)
+  - [Creality Spider - Titan Version (2023)](#creality-spider---titan-version-2023)
   - [Links](#links)
   - [Author](#author)
   - [Images](#images)
@@ -36,15 +39,34 @@ My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
 
 ### Upgrades
 
-- Hotend is a Creality Spider v3 (300)
-- E3D/Creality Titan Extruder
-- Drive drive conversation
+- SKR Mini E3 V3
+- Orbiter 2.0 Extruder
+  - Orbiter 2.0 Filament Loader and Sensor
+- Creality Spider Hotend (Titan kit version)
+- Drive drive
 - Dual Z Axis
-- Upgraded hotend fan to a 4020
-- Hero Me Gen 7 (Work In Progress - Not yet in use!)
+- Cooling
   - 2x 5015 Blower fans for part cooling
   - 1x 4020 Fan for the hotend
   - 1x 80mm Fan for the PSU
+- Replaced Neo X carriage mount with the Ender 3 V2 direct drive mount
+
+#### Future Upgrades
+
+Potential future upgrades
+
+- [Squirrelf](https://t.co/BVAAPdqH7z)'s ApolloLander cooling <https://www.patreon.com/posts/apollolander-and-71090737>
+- Klipper - Currently I'm using Marlin but I'm interested in trying Klipper
+- ADXL345 accelerometer
+- Belt driven Z Axis - <https://github.com/kevinakasam/BeltDrivenEnder3>
+- Linear rails (expensive though!)
+
+#### Previous Upgrades
+
+I'm no longer using these upgrades
+
+- E3D/Creality Titan Extruder
+- Hero Me Gen 7
 
 ### Connectivity
 
@@ -180,7 +202,7 @@ _Note: Creality's own '[Creality Slicer](https://www.creality.com/pages/download
 - PLA+ (eSun, yxpolyer)
   - Extruder Temperature: 208°C
     - Initial Layer Temperature: 210°C
-  - Platform Temperature: 68°C
+  - Platform Temperature: 70°C
     - Initial Layer Temperature: 75°C
 
 ## GCode scripts
@@ -212,11 +234,18 @@ URLs for reaching the camera from outside the container are:
 - Stream: `http://<your-server-ip>:7126/webcam/?action=stream`
 - Snapshot: `http://<your-server-ip>:7126/webcam/?action=snapshot`
 
+## Creality Spider - Titan Version (2023)
+
+The Spider hot end that comes with the Titan extruder kit is a bit different from the v1 and v3 spider.
+
+- See measurements in [images/creality-spider-titan-measurements-2023.jpeg](images/creality-spider-titan-measurements-2023.jpeg)
+
 ## Links
 
 - <https://github.com/mriscoc/Ender3V2S1>
 - <https://github.com/Lash-L/Ender-3-V2-Neo-Setup>
 - <https://github.com/norpchen/ProcessGCode>
+- <https://www.reddit.com/r/Ender3V2NEO/comments/zaxivx/creality_ender_3_v2_neo_modification_and_upgrade/>
 
 ## Author
 
