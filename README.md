@@ -14,9 +14,9 @@ My Documentation, Configuration, Scripts and notes for the Ender 3 V2 Neo 3d Pri
     - [Formatting SD Cards](#formatting-sd-cards)
   - [Settings](#settings)
     - [Feedrate calibration](#feedrate-calibration)
+      - [LDO Orbiter 2.0 Extruder](#ldo-orbiter-20-extruder)
       - [Stock Ender 3 v2 Neo Extruder](#stock-ender-3-v2-neo-extruder)
       - [E3D Titan Extruder](#e3d-titan-extruder)
-      - [LDO Orbiter 2.0 Extruder](#ldo-orbiter-20-extruder)
   - [Resonance Testing](#resonance-testing)
   - [Creality Spider - Titan Version (2023)](#creality-spider---titan-version-2023)
   - [Software](#software)
@@ -63,7 +63,7 @@ Potential future upgrades
 
 #### Previous Upgrades
 
-I'm no longer using these upgrades
+I'm no longer using these upgrades, but I'm keeping them here for reference.
 
 - E3D/Creality Titan Extruder
 - Hero Me Gen 7
@@ -116,22 +116,6 @@ sudo newfs_msdos -F 32 -b 4096 disk4s1 # Format the SDCard as FAT32 with a 4096 
 
 ### Feedrate calibration
 
-#### Stock Ender 3 v2 Neo Extruder
-
-(95.5+96.2+96.4)/3=96.033 = Extrusion multiplier: 1.04
-
-Current estep: 93 = E step multiplier found before: 1.04
-
-New estep value: 96.7, (repeat)
-
-- Feedrate (calibrated at the extruder (aka cold calibration): 95.7mm/s
-
-#### E3D Titan Extruder
-
-Creality Titan Kit
-
-- Final estep value: 406.0
-
 #### LDO Orbiter 2.0 Extruder
 
 ```cfg
@@ -179,6 +163,26 @@ driver_HEND: 6
 driver_HSTRT: 7
 driver_TOFF: 4
 ```
+
+#### Stock Ender 3 v2 Neo Extruder
+
+Note: _Legacy/historical information._
+
+(95.5+96.2+96.4)/3=96.033 = Extrusion multiplier: 1.04
+
+Current estep: 93 = E step multiplier found before: 1.04
+
+New estep value: 96.7, (repeat)
+
+- Feedrate (calibrated at the extruder (aka cold calibration): 95.7mm/s
+
+#### E3D Titan Extruder
+
+Note: _Legacy/historical information._
+
+Creality Titan Kit
+
+- Final estep value: 406.0
 
 ## Resonance Testing
 
@@ -235,7 +239,7 @@ Output Options
 ### Cura
 
 - [Ultimaker Cura](https://ultimaker.com/software/ultimaker-cura).
-- See [cura/profiles](cura/profiles)
+- See [cura/profiles](legacy/cura/profiles)
 
 _Note: Creality's own '[Creality Slicer](https://www.creality.com/pages/download-ender-3-v2-neo)' software is a fork of [Cura](https://ultimaker.com/software/ultimaker-cura) and is often lagging behind Cura versions._
 
@@ -249,19 +253,20 @@ _Note: Creality's own '[Creality Slicer](https://www.creality.com/pages/download
 
 ### GCode scripts
 
-- See [gcodes](gcodes)
+- See [klipper/cfg-macros](klipper/cfg-macros)
+- See [legacy/gcodes](legacy/gcodes) (old)
 
 ### Octoprint
 
 _Note: I'm in the process of switching from OctoPrint + Marlin to Klipper + Mainsail / Fluidd with [kiauh](https://github.com/th33xitus/kiauh)._
 
-- Historical octoprint [octoprint/docker-compose.yml](octoprint/docker-compose.yml) NO LONGER USED.
+- Historical octoprint [octoprint/docker-compose.yml](legacy/octoprint/docker-compose.yml) NO LONGER USED.
 
 ## Failed print recovery
 
 I've created a GCODE template that can be used to recover/resume from a failed print.
 
-- See [gcodes/manual-print-recovery.gcode](gcodes/manual-print-recovery.gcode)
+- See [legacy/gcodes/manual-print-recovery.gcode](legacy/gcodes/manual-print-recovery.gcode)
 
 ### Webcam
 
@@ -270,7 +275,6 @@ Webcam Settings
 - Stream URL: `http://192.168.0.12:8002/stream?extra_headers=1`
 - Snapshot URL: `http://192.168.0.12:8002/snapshot`
 - Path to FFMPEG: `/usr/bin/ffmpeg`
-
 
 ## Links
 
