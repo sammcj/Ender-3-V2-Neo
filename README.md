@@ -1,6 +1,6 @@
 # Ender-3-V2-Neo
 
-My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
+My Documentation, Configuration, Scripts and notes for the Ender 3 V2 Neo 3d Printer.
 
 - [Ender-3-V2-Neo](#ender-3-v2-neo)
 - [Sam's Ender 3 V2 Neo Setup](#sams-ender-3-v2-neo-setup)
@@ -17,17 +17,16 @@ My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
       - [Stock Ender 3 v2 Neo Extruder](#stock-ender-3-v2-neo-extruder)
       - [E3D Titan Extruder](#e3d-titan-extruder)
       - [LDO Orbiter 2.0 Extruder](#ldo-orbiter-20-extruder)
-  - [Slicing](#slicing)
-  - [Prusa Slicer](#prusa-slicer)
+  - [Resonance Testing](#resonance-testing)
+  - [Creality Spider - Titan Version (2023)](#creality-spider---titan-version-2023)
+  - [Software](#software)
+    - [Prusa Slicer](#prusa-slicer)
     - [Cura](#cura)
-  - [Materials](#materials)
-  - [GCode scripts](#gcode-scripts)
-  - [Octoprint](#octoprint)
-    - [Octoprint Docker](#octoprint-docker)
+    - [Material Settings](#material-settings)
+    - [GCode scripts](#gcode-scripts)
+    - [Octoprint](#octoprint)
   - [Failed print recovery](#failed-print-recovery)
     - [Webcam](#webcam)
-  - [Creality Spider - Titan Version (2023)](#creality-spider---titan-version-2023)
-  - [Resonance Testing](#resonance-testing)
   - [Links](#links)
   - [Author](#author)
   - [Images](#images)
@@ -68,19 +67,15 @@ I'm no longer using these upgrades
 
 - E3D/Creality Titan Extruder
 - Hero Me Gen 7
+- Spider 1.0 Hot End
 
 ### Connectivity
 
-- Home server (running Fedora Server)
-- OctoPrint running in a container
-- Webcam running with ustreamer
+- Klipper/Mainsail/Fluidd running on a RockPi 4 SE
+- Webcam connected to RockPi with ustreamer
 - Printer connected via USB
   - I did try removing the USB 5v pin as per <https://community.octoprint.org/t/put-tape-on-the-5v-pin-why-and-how/13574> but it caused the printer to not be detected, I ended up getting an adapter that removes the 5v pin cleanly.
-  - udev rules for consistent USB device naming - when you reconnect a USB device it might get a different device name (e.g. `/dev/ttyUSB0` > `/dev/ttyUSB1` etc...) - this is annoying if you've configured your software such as Octoprint to use a specific device.
-
-As such you can create udev rules to ensure both the printer and any related webcams are always named consistently (e.g. `/dev/3dprinter`, `/dev/webcam` etc...).
-
-- See [octoprint/`99-3d-printer.rules`](octoprint/99-3d-printer.rules)
+  - udev rules for consistent USB device naming - when you reconnect a USB device it might get a different device name (e.g. `/dev/ttyUSB0` > `/dev/ttyUSB1` etc...) - this is annoying if you've configured your software such as Octoprint to use a specific device. As such you can create udev rules to ensure both the printer and any related webcams are always named consistently (e.g. `/dev/3dprinter`, `/dev/webcam` etc...) [octoprint/`99-3d-printer.rules`](octoprint/99-3d-printer.rules).
 
 ## Firmware
 
@@ -113,12 +108,11 @@ sudo newfs_msdos -F 32 -b 4096 disk4s1 # Format the SDCard as FAT32 with a 4096 
 ## Settings
 
 - Bed size (printable)
-  - X: 220mm
-  - Y: 220mm
+  - X: 225mm
+  - Y: 225mm
 - Bed size (max)
-  - X: 245mm
+  - X: 244mm
   - Y: 230mm
-- Feedrate (calibrated at the extruder (aka cold calibration): 95.7mm/s
 
 ### Feedrate calibration
 
@@ -130,7 +124,7 @@ Current estep: 93 = E step multiplier found before: 1.04
 
 New estep value: 96.7, (repeat)
 
-- Final estep value: 95.7
+- Feedrate (calibrated at the extruder (aka cold calibration): 95.7mm/s
 
 #### E3D Titan Extruder
 
@@ -140,45 +134,94 @@ Creality Titan Kit
 
 #### LDO Orbiter 2.0 Extruder
 
-Default config:
+```cfg
+[extruder]
+# orbiter motor LDO-36STH20-1004AHG(XH)
+rotation_distance: 4.576 # calibrated 2023-03-12
+microsteps: 16
+full_steps_per_rotation:   200
+min_extrude_temp: 180
+max_extrude_only_distance: 500
+max_extrude_only_velocity: 120      # <- for orbiter motor LDO-36STH20-1004AHG(XH)
+max_extrude_only_accel:    800      # <- for orbiter motor LDO-36STH20-1004AHG(XH)
+step_pin: PB3
+dir_pin: !PB4
+enable_pin: !PD1
+microsteps: 16
+nozzle_diameter: 0.600
+filament_diameter: 1.750
+heater_pin: PC8
+sensor_type: EPCOS 100K B57560G104F # maybe try ATC Semitec 104GT-2
+sensor_pin: PA0
+#control: pid
+#pid_Kp: 21.527
+#pid_Ki: 1.063
+#pid_Kd: 108.982
+min_temp: 0
+max_temp: 270
+#PA values
+#PLA+ eSun:
+pressure_advance: 0.025    # to be calibrated
+pressure_advance_smooth_time: 0.03  # to be calibrated
 
-- E350 E16 ; micro stepping to 16
-- M92 E690 ; set extruder steps/mm to 690 defaults (needs to be calibrated)
-- M201 E3000 ; set max acceleration to 3000/s2 (can go to 8000, but 3000 should be good)
-- M203 E120 ; set max speed to 120mm/s
-- M205 E5 ; set acceleration to 5mm/s2
-- M906 TO E850 ; set motor current to 850mA
-- M900 TO K0.22 L0.02 ; set Linear Advance defaults (needs to be calibrated)
-- M207 S1.5 F7200 Z0.2 ; firmware retraction (needs to be calibrated - 1.0~1.5mm)
-- Pressure Advance: 0.2~0.3s (needs to be calibrated)
-- Max. instantaneous speed change (jerk): 10mm/s (Marlin) (recommended 300/5)
-- Motor current: 1.2A Peak or 0.85A RMS (LDO-36STH20-1004AHG)
-- Drive motor with stealth chop disabled
-- Resistor shunt for Ender 3 v2 Neo Trinamic TMC2130, TMC2208, TMC2209, TMC2225, TMC2226 - Rshunt = 0.11Ω => Vref =1.2V, Vref = Imot*(Rsunt+20mΩ)/92.85mV
-  - Vref -> reference voltage measured on the trimmer resistor
-  - Imot - desired peak motor current - for the Orbiter v2.0 recommended value is 1.2A
-  - Rsunt - shunt resistor or sense resistor value defined in Ohms.
-  - See <https://orbiterprojects.com/orbiter-v2-0/>
-
-And remember to do a M500 to save settings
-
-```gcode
-M350 E16                        ;micro stepping set to 16*
-M92 E690                        ;steps/mm - you may need to fine tune it
-M201 E3000                    ;acceleration mm/s2
-M203 E120                      ;max speed mm/s
-M205 E5                          ;E jerk mm/s
-M906 T0 E850                 ;motor RMS current in mA*
-M900 T0 K0.22 L0.02      ;linear advance values to be calibrated*
-M207 S1.5 F7200 Z0.2    ;firmware retraction*
-M500                                ;save settings to EEPROM
+[tmc2209 extruder]
+interpolate: true
+uart_pin: PC11
+tx_pin: PC10
+uart_address: 3
+## orbiter motor LDO-36STH20-1004AHG(XH)
+run_current:    0.850 # RMS <- for orbiter motor LDO-36STH20-1004AHG(XH)
+hold_current:   0.1
+sense_resistor: 0.11
+stealthchop_threshold: 0
+driver_TBL: 0
+driver_HEND: 6
+driver_HSTRT: 7
+driver_TOFF: 4
 ```
 
-- Calibrated estep: #TODO:
+## Resonance Testing
 
-## Slicing
+![](images/shaper_calibrate_x-resonances_x_20230312_125814.png)
+![](images/shaper_calibrate_y-resonances_y_20230312_130305.png)
 
-## Prusa Slicer
+```plain
+/usr/share/klipper/scripts/calibrate_shaper.py /tmp/resonances_x_*.csv -o /tmp/shaper_calibrate_x.png
+Fitted shaper 'zv' frequency = 61.8 Hz (vibrations = 12.7%, smoothing ~= 0.047)
+To avoid too much smoothing with 'zv', suggested max_accel <= 14900 mm/sec^2
+Fitted shaper 'mzv' frequency = 44.2 Hz (vibrations = 3.3%, smoothing ~= 0.104)
+To avoid too much smoothing with 'mzv', suggested max_accel <= 5800 mm/sec^2
+Fitted shaper 'ei' frequency = 59.6 Hz (vibrations = 1.1%, smoothing ~= 0.091)
+To avoid too much smoothing with 'ei', suggested max_accel <= 6600 mm/sec^2
+Fitted shaper '2hump_ei' frequency = 53.6 Hz (vibrations = 0.1%, smoothing ~= 0.188)
+To avoid too much smoothing with '2hump_ei', suggested max_accel <= 3200 mm/sec^2
+Fitted shaper '3hump_ei' frequency = 55.2 Hz (vibrations = 0.0%, smoothing ~= 0.269)
+To avoid too much smoothing with '3hump_ei', suggested max_accel <= 2100 mm/sec^2
+Recommended shaper is ei @ 59.6 Hz
+
+/usr/share/klipper/scripts/calibrate_shaper.py /tmp/resonances_y_*.csv -o /tmp/shaper_calibrate_y.png
+Fitted shaper 'zv' frequency = 45.6 Hz (vibrations = 7.1%, smoothing ~= 0.080)
+To avoid too much smoothing with 'zv', suggested max_accel <= 8100 mm/sec^2
+Fitted shaper 'mzv' frequency = 41.2 Hz (vibrations = 0.2%, smoothing ~= 0.120)
+To avoid too much smoothing with 'mzv', suggested max_accel <= 5000 mm/sec^2
+Fitted shaper 'ei' frequency = 48.8 Hz (vibrations = 0.0%, smoothing ~= 0.135)
+To avoid too much smoothing with 'ei', suggested max_accel <= 4400 mm/sec^2
+Fitted shaper '2hump_ei' frequency = 60.6 Hz (vibrations = 0.0%, smoothing ~= 0.147)
+To avoid too much smoothing with '2hump_ei', suggested max_accel <= 4100 mm/sec^2
+Fitted shaper '3hump_ei' frequency = 72.8 Hz (vibrations = 0.0%, smoothing ~= 0.155)
+To avoid too much smoothing with '3hump_ei', suggested max_accel <= 3900 mm/sec^2
+Recommended shaper is mzv @ 41.2 Hz
+```
+
+## Creality Spider - Titan Version (2023)
+
+The Spider hot end that comes with the Titan extruder kit is a bit different from the v1 and v3 spider.
+
+![images/creality-spider-titan-measurements-2023.jpeg](images/creality-spider-titan-measurements-2023.jpeg)
+
+## Software
+
+### Prusa Slicer
 
 - Running the [latest beta/alpha version](https://github.com/prusa3d/PrusaSlicer/releases).
 - See [prusa-slicer](prusa-slicer).
@@ -196,25 +239,23 @@ Output Options
 
 _Note: Creality's own '[Creality Slicer](https://www.creality.com/pages/download-ender-3-v2-neo)' software is a fork of [Cura](https://ultimaker.com/software/ultimaker-cura) and is often lagging behind Cura versions._
 
-## Materials
-
-- See [cura/materials](cura/materials)
+### Material Settings
 
 - PLA+ (eSun, yxpolyer)
-  - Extruder Temperature: 208°C
+  - Extruder Temperature: 206°C
     - Initial Layer Temperature: 210°C
-  - Platform Temperature: 70°C
-    - Initial Layer Temperature: 75°C
+  - Platform Temperature: 65°C
+    - Initial Layer Temperature: 74°C
 
-## GCode scripts
+### GCode scripts
 
 - See [gcodes](gcodes)
 
-## Octoprint
+### Octoprint
 
-### Octoprint Docker
+_Note: I'm in the process of switching from OctoPrint + Marlin to Klipper + Mainsail / Fluidd with [kiauh](https://github.com/th33xitus/kiauh)._
 
-- See [octoprint/docker-compose.yml](octoprint/docker-compose.yml)
+- Historical octoprint [octoprint/docker-compose.yml](octoprint/docker-compose.yml) NO LONGER USED.
 
 ## Failed print recovery
 
@@ -224,56 +265,12 @@ I've created a GCODE template that can be used to recover/resume from a failed p
 
 ### Webcam
 
-Octoprint Webcam Settings
+Webcam Settings
 
-- Stream URL: `/webcam/?action=stream`
-- Snapshot URL: `http://<host-ip>:9876/?action=snapshot`
+- Stream URL: `http://192.168.0.12:8002/stream?extra_headers=1`
+- Snapshot URL: `http://192.168.0.12:8002/snapshot`
 - Path to FFMPEG: `/usr/bin/ffmpeg`
 
-URLs for reaching the camera from outside the container are:
-
-- Stream: `http://<your-server-ip>:7126/webcam/?action=stream`
-- Snapshot: `http://<your-server-ip>:7126/webcam/?action=snapshot`
-
-## Creality Spider - Titan Version (2023)
-
-The Spider hot end that comes with the Titan extruder kit is a bit different from the v1 and v3 spider.
-
-- See measurements in [images/creality-spider-titan-measurements-2023.jpeg](images/creality-spider-titan-measurements-2023.jpeg)
-
-## Resonance Testing
-
-![](images/shaper_calibrate_x-resonances_x_20230312_125814.png)
-![](images/shaper_calibrate_y-resonances_y_20230312_130305.png)
-
-```
-root@spad-8881:/usr/share/klipper# /usr/share/klipper/scripts/calibrate_shaper.py /tmp/resonances_x_*.csv -o /tmp/shaper_calibrate_x.png
-Fitted shaper 'zv' frequency = 61.8 Hz (vibrations = 12.7%, smoothing ~= 0.047)
-To avoid too much smoothing with 'zv', suggested max_accel <= 14900 mm/sec^2
-Fitted shaper 'mzv' frequency = 44.2 Hz (vibrations = 3.3%, smoothing ~= 0.104)
-To avoid too much smoothing with 'mzv', suggested max_accel <= 5800 mm/sec^2
-Fitted shaper 'ei' frequency = 59.6 Hz (vibrations = 1.1%, smoothing ~= 0.091)
-To avoid too much smoothing with 'ei', suggested max_accel <= 6600 mm/sec^2
-Fitted shaper '2hump_ei' frequency = 53.6 Hz (vibrations = 0.1%, smoothing ~= 0.188)
-To avoid too much smoothing with '2hump_ei', suggested max_accel <= 3200 mm/sec^2
-Fitted shaper '3hump_ei' frequency = 55.2 Hz (vibrations = 0.0%, smoothing ~= 0.269)
-To avoid too much smoothing with '3hump_ei', suggested max_accel <= 2100 mm/sec^2
-Recommended shaper is ei @ 59.6 Hz
-
-root@spad-8881:/usr/share/klipper# /usr/share/klipper/scripts/calibrate_shaper.py /tmp/resonances_y_*.csv -o /tmp/shaper_calibrate_y.png
-Fitted shaper 'zv' frequency = 45.6 Hz (vibrations = 7.1%, smoothing ~= 0.080)
-To avoid too much smoothing with 'zv', suggested max_accel <= 8100 mm/sec^2
-Fitted shaper 'mzv' frequency = 41.2 Hz (vibrations = 0.2%, smoothing ~= 0.120)
-To avoid too much smoothing with 'mzv', suggested max_accel <= 5000 mm/sec^2
-Fitted shaper 'ei' frequency = 48.8 Hz (vibrations = 0.0%, smoothing ~= 0.135)
-To avoid too much smoothing with 'ei', suggested max_accel <= 4400 mm/sec^2
-Fitted shaper '2hump_ei' frequency = 60.6 Hz (vibrations = 0.0%, smoothing ~= 0.147)
-To avoid too much smoothing with '2hump_ei', suggested max_accel <= 4100 mm/sec^2
-Fitted shaper '3hump_ei' frequency = 72.8 Hz (vibrations = 0.0%, smoothing ~= 0.155)
-To avoid too much smoothing with '3hump_ei', suggested max_accel <= 3900 mm/sec^2
-Recommended shaper is mzv @ 41.2 Hz
-root@spad-8881:/usr/share/klipper#
-```
 
 ## Links
 
