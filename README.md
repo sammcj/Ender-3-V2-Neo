@@ -27,6 +27,7 @@ My Documentation, Configuration and Scripts for the Ender 3 V2 Neo 3d Printer.
   - [Failed print recovery](#failed-print-recovery)
     - [Webcam](#webcam)
   - [Creality Spider - Titan Version (2023)](#creality-spider---titan-version-2023)
+  - [Resonance Testing](#resonance-testing)
   - [Links](#links)
   - [Author](#author)
   - [Images](#images)
@@ -239,6 +240,37 @@ URLs for reaching the camera from outside the container are:
 The Spider hot end that comes with the Titan extruder kit is a bit different from the v1 and v3 spider.
 
 - See measurements in [images/creality-spider-titan-measurements-2023.jpeg](images/creality-spider-titan-measurements-2023.jpeg)
+
+## Resonance Testing
+
+```
+root@spad-8881:/usr/share/klipper# /usr/share/klipper/scripts/calibrate_shaper.py /tmp/resonances_x_*.csv -o /tmp/shaper_calibrate_x.png
+Fitted shaper 'zv' frequency = 61.8 Hz (vibrations = 12.7%, smoothing ~= 0.047)
+To avoid too much smoothing with 'zv', suggested max_accel <= 14900 mm/sec^2
+Fitted shaper 'mzv' frequency = 44.2 Hz (vibrations = 3.3%, smoothing ~= 0.104)
+To avoid too much smoothing with 'mzv', suggested max_accel <= 5800 mm/sec^2
+Fitted shaper 'ei' frequency = 59.6 Hz (vibrations = 1.1%, smoothing ~= 0.091)
+To avoid too much smoothing with 'ei', suggested max_accel <= 6600 mm/sec^2
+Fitted shaper '2hump_ei' frequency = 53.6 Hz (vibrations = 0.1%, smoothing ~= 0.188)
+To avoid too much smoothing with '2hump_ei', suggested max_accel <= 3200 mm/sec^2
+Fitted shaper '3hump_ei' frequency = 55.2 Hz (vibrations = 0.0%, smoothing ~= 0.269)
+To avoid too much smoothing with '3hump_ei', suggested max_accel <= 2100 mm/sec^2
+Recommended shaper is ei @ 59.6 Hz
+
+root@spad-8881:/usr/share/klipper# /usr/share/klipper/scripts/calibrate_shaper.py /tmp/resonances_y_*.csv -o /tmp/shaper_calibrate_y.png
+Fitted shaper 'zv' frequency = 45.6 Hz (vibrations = 7.1%, smoothing ~= 0.080)
+To avoid too much smoothing with 'zv', suggested max_accel <= 8100 mm/sec^2
+Fitted shaper 'mzv' frequency = 41.2 Hz (vibrations = 0.2%, smoothing ~= 0.120)
+To avoid too much smoothing with 'mzv', suggested max_accel <= 5000 mm/sec^2
+Fitted shaper 'ei' frequency = 48.8 Hz (vibrations = 0.0%, smoothing ~= 0.135)
+To avoid too much smoothing with 'ei', suggested max_accel <= 4400 mm/sec^2
+Fitted shaper '2hump_ei' frequency = 60.6 Hz (vibrations = 0.0%, smoothing ~= 0.147)
+To avoid too much smoothing with '2hump_ei', suggested max_accel <= 4100 mm/sec^2
+Fitted shaper '3hump_ei' frequency = 72.8 Hz (vibrations = 0.0%, smoothing ~= 0.155)
+To avoid too much smoothing with '3hump_ei', suggested max_accel <= 3900 mm/sec^2
+Recommended shaper is mzv @ 41.2 Hz
+root@spad-8881:/usr/share/klipper#
+```
 
 ## Links
 
