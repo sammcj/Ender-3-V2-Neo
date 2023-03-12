@@ -221,6 +221,8 @@ Recommended shaper is mzv @ 41.2 Hz
 
 The Spider hot end that comes with the Titan extruder kit is a bit different from the v1 and v3 spider.
 
+Note: The carriage plate pictured here is NOT the Neo version! It's from a Ender 3 v2 (non-neo).
+
 ![images/creality-spider-titan-measurements-2023.jpeg](images/creality-spider-titan-measurements-2023.jpeg)
 
 ## Software
