@@ -243,6 +243,9 @@ The Spider hot end that comes with the Titan extruder kit is a bit different fro
 
 ## Resonance Testing
 
+![](images/shaper_calibrate_x-resonances_x_20230312_125814.png)
+![](images/shaper_calibrate_y-resonances_y_20230312_130305.png)
+
 ```
 root@spad-8881:/usr/share/klipper# /usr/share/klipper/scripts/calibrate_shaper.py /tmp/resonances_x_*.csv -o /tmp/shaper_calibrate_x.png
 Fitted shaper 'zv' frequency = 61.8 Hz (vibrations = 12.7%, smoothing ~= 0.047)
