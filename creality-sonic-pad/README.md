@@ -1,6 +1,6 @@
 # Creality Sonic Pad (Klipper)
 
-Default root password is `cxsw-sonic_2023`
+Factory default root password is `cxsw-sonic_2023`
 
 ## Bypass new printer setup screen
 

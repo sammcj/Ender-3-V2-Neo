@@ -5,6 +5,14 @@ Used as OctoPrint host
 ## Armbian
 
 ```shell
+temp=$(mktemp)
+curl -L --output radxa.deb "https://github.com/radxa-pkg/radxa-archive-keyring/releases/latest/download/radxa-archive-keyring_$(curl -L https://github.com/radxa-pkg/radxa-archive-keyring/releases/latest/download/VERSION)_all.deb"
+sudo dpkg -i radxa.deb
+rm -f radxa.deb
+source /etc/os-release
+sudo tee /etc/apt/sources.list.d/radxa.list <<< "deb [signed-by=/usr/share/keyrings/radxa-archive-keyring.gpg] https://radxa-repo.github.io/bullseye/ $VERSION_CODENAME main"
+sudo apt update
+
 apt install -y setserial irqtop borgmatic borgbackup firmware-brcm80211 hwinfo jq lshw usbutils v4l-utils zstd libzstd1 python3-zstd socat fzf aria2 nullmailer build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev
 
 systemctl disable bluetooth.service vnstat.service console-getty.service wpa_supplicant.service
